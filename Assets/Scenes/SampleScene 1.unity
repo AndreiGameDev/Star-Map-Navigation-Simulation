@@ -407,12 +407,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6342861a83b4d845a734db5ba9dc610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerRadius: 20.6
-  outerRadius: 2.04
-  verticalLimit: 2.23
-  starDisplacement: 3.2
+  innerRadius: 58.4
+  outerRadius: 10.9
+  verticalLimit: 14.9
+  starDisplacement: 20.2
   starPrefab: {fileID: 959885399}
-  starsToSpawn: 166
+  starsToSpawn: 432
 --- !u!4 &445823353
 Transform:
   m_ObjectHideFlags: 0
