@@ -388,8 +388,9 @@ GameObject:
   m_Component:
   - component: {fileID: 445823353}
   - component: {fileID: 445823352}
+  - component: {fileID: 445823354}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: == Star Map Generator ==
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,12 +408,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6342861a83b4d845a734db5ba9dc610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerRadius: 58.4
-  outerRadius: 10.9
-  verticalLimit: 14.9
-  starDisplacement: 20.2
+  innerRadius: 68.9
+  outerRadius: 20.9
+  verticalLimit: 18
+  starDisplacement: 25.6
   starPrefab: {fileID: 959885399}
-  starsToSpawn: 432
+  starsToSpawn: 500
+  starHolderTransform: {fileID: 1398683787}
+  Stars: []
 --- !u!4 &445823353
 Transform:
   m_ObjectHideFlags: 0
@@ -428,6 +431,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &445823354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445823351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edb1f6c06076cb479b8f16d4d2dbf78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allNames: []
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +598,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1398683786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1398683787}
+  m_Layer: 0
+  m_Name: StarHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1398683787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398683786}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 88.75191, y: 55.226974, z: 41.694767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -591,3 +638,4 @@ SceneRoots:
   - {fileID: 959885403}
   - {fileID: 832575519}
   - {fileID: 445823353}
+  - {fileID: 1398683787}

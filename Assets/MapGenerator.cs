@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.TerrainTools;
 using UnityEngine;
@@ -10,13 +11,19 @@ public class MapGenerator : MonoBehaviour
     public float outerRadius = 11;
     [Range(1, 50)]
     public float verticalLimit = 15;
-    [Range(1, 100)]
+    [Range(10, 100)]
     public float starDisplacement = 15;
 
     [SerializeField] GameObject starPrefab;
     [Range(1,500)]
     [SerializeField] int starsToSpawn = 100;
+    [SerializeField] Transform starHolderTransform;
+    StarMapNameGenerator nameGenerator;
+    [SerializeField]List<GameObject> Stars = new List<GameObject>();
     private void Awake() {
+        nameGenerator = GetComponent<StarMapNameGenerator>();
+    }
+    private void Start() {
         for(int i = 0; i < starsToSpawn; i++) {
             // Generate a random angle
             float angle = Random.Range(0f, Mathf.PI * 2);
@@ -32,9 +39,17 @@ public class MapGenerator : MonoBehaviour
             // Create the spawn position
             Vector3 spawnPosition = new Vector3(x + Random.Range(-starDisplacement, starDisplacement), y, z + Random.Range(-starDisplacement, starDisplacement));
 
-            
-            // Instantiate the starPrefab
-            Instantiate(starPrefab, spawnPosition, Quaternion.identity);
+            // Check for any potential star overlaps
+            if(Physics.CheckSphere(spawnPosition, 3f) == false) {
+                // Instantiate the starPrefab
+                GameObject tempObjectInformation = Instantiate(starPrefab, spawnPosition, Quaternion.identity, starHolderTransform);
+                tempObjectInformation.name = nameGenerator.GenerateNameString();
+                Stars.Add(tempObjectInformation);
+                tempObjectInformation = null;
+            } else {
+                Debug.LogWarning("Prevented a star from overlapping");
+                i--;
+            }
         }
     }
 
