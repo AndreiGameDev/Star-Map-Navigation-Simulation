@@ -9,7 +9,9 @@ public class Star : MonoBehaviour
     [SerializeField] int maxRoutes;
     [SerializeField] float rangeToCheck = 10f;
     [SerializeField] GameObject RoutePreviewer;
+    public MeshRenderer meshRenderer;
     private void Awake() {
+        meshRenderer = GetComponent<MeshRenderer>();
         maxRoutes = Random.Range(0, 3);
         RaycastHit[] stars = Physics.SphereCastAll(transform.position, rangeToCheck, transform.forward, rangeToCheck);
         if(stars.Length > 0) {
@@ -32,8 +34,5 @@ public class Star : MonoBehaviour
                 lineRenderer.SetPosition(1, star.transform.position);
             }
         }
-        
-
-        
     }
 }

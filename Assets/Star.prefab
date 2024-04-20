@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8795164876285859060}
   - component: {fileID: 831344324174483579}
   - component: {fileID: -3537090316314110568}
+  - component: {fileID: 502468850017384279}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9b5f5b52757c48d46a2bd7ed6d539808, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,3 +123,16 @@ MonoBehaviour:
   rangeToCheck: 40
   RoutePreviewer: {fileID: 8547015433823922464, guid: 24909d238fa13e14fb105fa53d3079ec,
     type: 3}
+  material: {fileID: 0}
+--- !u!114 &502468850017384279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4609314741447827720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607553d82cd4be541afc92feafbb7216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
