@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int starsToSpawn = 100;
     [SerializeField] Transform starHolderTransform;
     StarMapNameGenerator nameGenerator;
-    [SerializeField]List<GameObject> Stars = new List<GameObject>();
+    public List<Star> Stars = new List<Star>();
     private void Awake() {
         nameGenerator = GetComponent<StarMapNameGenerator>();
     }
@@ -44,7 +44,7 @@ public class MapGenerator : MonoBehaviour
                 // Instantiate the starPrefab
                 GameObject tempObjectInformation = Instantiate(starPrefab, spawnPosition, Quaternion.identity, starHolderTransform);
                 tempObjectInformation.name = nameGenerator.GenerateNameString();
-                Stars.Add(tempObjectInformation);
+                Stars.Add(tempObjectInformation.GetComponent<Star>());
                 tempObjectInformation = null;
             } else {
                 Debug.LogWarning("Prevented a star from overlapping");

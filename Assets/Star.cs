@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 public class Star : MonoBehaviour
 {
     // Route dictionary = Star routing to, Lenght.
-    Dictionary<Star,float> routeDictionary = new Dictionary<Star, float>();
+    public Dictionary<Star,float> routeDictionary = new Dictionary<Star, float>();
     [SerializeField] int maxRoutes;
     [SerializeField] float rangeToCheck = 10f;
     [SerializeField] GameObject RoutePreviewer;
@@ -17,16 +17,15 @@ public class Star : MonoBehaviour
         if(stars.Length > 0) {
             for(int i = 0; i < maxRoutes; i++) {
                 int index = Random.Range(0, stars.Length);
-                Debug.Log(maxRoutes);
-                Debug.Log(stars.Length);
-                Debug.Log(index);
                 Star star = stars[index].transform.GetComponent<Star>();
                 if(!routeDictionary.ContainsKey(star)) {
                     float distance = Vector3.Distance(transform.position, star.transform.position);
                     routeDictionary.Add(star, distance);
+                    if(!star.routeDictionary.ContainsKey(this)) {
+                        star.routeDictionary.Add(this, distance);
+                    }
                 }
             }
-
             foreach(Star star in routeDictionary.Keys) {
                 GameObject tempObject = Instantiate(RoutePreviewer, transform.position, Quaternion.identity, transform);
                 LineRenderer lineRenderer = tempObject.GetComponent<LineRenderer>();
