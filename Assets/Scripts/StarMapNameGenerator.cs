@@ -7,7 +7,6 @@ public class StarMapNameGenerator : MonoBehaviour
     private void Awake() {
         string filePath = Path.Combine(Application.dataPath, "StarNameData.txt");
         allNames = File.ReadAllLines(filePath);
-        PrintRandomNames(5);
     }
 
     public void PrintRandomNames(int count) {

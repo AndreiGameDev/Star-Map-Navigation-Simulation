@@ -7,17 +7,21 @@ public class RouteDefiner : MonoBehaviour
     public static RouteDefiner Instance {
         get { return instance; }
     }
-    [SerializeField] Star StartPointStar;
-    [SerializeField] Star EndPointStar;
+    Star StartPointStar;
+    Star EndPointStar;
 
-    [SerializeField]List<Star> starRoute = new List<Star>();
-    [SerializeField]List<Star> visitedStars = new List<Star>();
+    List<Star> starRoute = new List<Star>();
+    List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
+    List<Star> galaxyStarList = new List<Star>();
+    MapGenerator mapGenerator;
+
+    [Header("StarMaterials")]
     [SerializeField] Material defaultStarMaterial;
     [SerializeField] Material startPointStarMaterial;
     [SerializeField] Material endPointStarMaterial;
-
-    [SerializeField]private List<Star> galaxyStarList = new List<Star>();
-    MapGenerator mapGenerator;
+    [Header("StarConnectorMaterials")]
+    [SerializeField] Material defaultStarConnectorMaterial;
+    [SerializeField] Material selectedPathMaterial;
     private void Awake() {
         instance = this;
 
@@ -45,10 +49,18 @@ public class RouteDefiner : MonoBehaviour
     }
     private void Update() {
         if(Input.GetKeyDown(KeyCode.F)) {
-            starRoute = FindPath(StartPointStar, EndPointStar);
+            LocatePathAndConnectors();
         }
     }
-    
+
+    private void LocatePathAndConnectors() {
+        starRoute = FindPath(StartPointStar, EndPointStar);
+        for(int i = 0; i < starRoute.Count - 1; i++) {
+            Star startStar = starRoute[i];
+            Star destinationStar = starRoute[i + 1];
+            starRouteConnectors.Add(startStar.routeConnectors[destinationStar]);
+        }   
+    }
 
     public List<Star> FindPath(Star startStar, Star endGoalStar) {
         List<StarPath> priorityList = new List<StarPath>();

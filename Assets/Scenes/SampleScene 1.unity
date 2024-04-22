@@ -263,7 +263,6 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
   - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
@@ -390,26 +389,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &330585548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dede8d00862eef4481b8247273ee95d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPointStar: {fileID: 0}
-  EndPointStar: {fileID: 0}
-  starRoute: []
-  defaultStarMaterial: {fileID: 2100000, guid: 9b5f5b52757c48d46a2bd7ed6d539808, type: 2}
-  startPointStarMaterial: {fileID: 2100000, guid: e9c71471be91a5c46be3baa6d2d01202,
-    type: 2}
-  endPointStarMaterial: {fileID: 2100000, guid: 370902fc44d396743928f45bc9a62019,
-    type: 2}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,6 +534,7 @@ GameObject:
   - component: {fileID: 445823353}
   - component: {fileID: 445823352}
   - component: {fileID: 445823354}
+  - component: {fileID: 445823355}
   m_Layer: 0
   m_Name: == Star Map Generator ==
   m_TagString: Untagged
@@ -611,6 +591,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allNames: []
+--- !u!114 &445823355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445823351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dede8d00862eef4481b8247273ee95d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPointStar: {fileID: 0}
+  EndPointStar: {fileID: 0}
+  starRoute: []
+  visitedStars: []
+  defaultStarMaterial: {fileID: 2100000, guid: 9b5f5b52757c48d46a2bd7ed6d539808, type: 2}
+  startPointStarMaterial: {fileID: 2100000, guid: e9c71471be91a5c46be3baa6d2d01202,
+    type: 2}
+  endPointStarMaterial: {fileID: 2100000, guid: 370902fc44d396743928f45bc9a62019,
+    type: 2}
+  galaxyStarList: []
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

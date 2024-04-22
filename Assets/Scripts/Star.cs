@@ -10,6 +10,7 @@ public class Star : MonoBehaviour
     [SerializeField] float rangeToCheck = 10f;
     [SerializeField] GameObject RoutePreviewer;
     public MeshRenderer meshRenderer;
+    public Dictionary<Star, LineRenderer> routeConnectors = new Dictionary<Star, LineRenderer>();
     private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
         maxRoutes = Random.Range(0, 3);
@@ -26,9 +27,19 @@ public class Star : MonoBehaviour
                     }
                 }
             }
-            foreach(Star star in routeDictionary.Keys) {
+            
+        }
+    }
+
+    private void Start() {
+        foreach(Star star in routeDictionary.Keys) {
+            if(!routeConnectors.ContainsKey(star)) {
                 GameObject tempObject = Instantiate(RoutePreviewer, transform.position, Quaternion.identity, transform);
                 LineRenderer lineRenderer = tempObject.GetComponent<LineRenderer>();
+                routeConnectors.Add(star, lineRenderer);
+                if(!star.routeConnectors.ContainsKey(this)) {
+                    star.routeConnectors.Add(this, lineRenderer);
+                }
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, star.transform.position);
             }

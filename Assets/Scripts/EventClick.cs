@@ -12,13 +12,10 @@ public class EventClick : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     }
     public void OnPointerClick(PointerEventData eventData) {
         routeDefiner.EventClickAction(star);
-        Debug.Log(gameObject.name + " Has been clicked.");
     }
     public void OnPointerEnter(PointerEventData eventData) {
-        Debug.Log("Hovering " + gameObject.name + ".");
     }
 
     public void OnPointerExit(PointerEventData eventData) {
-        Debug.Log("Stopped hovering " + gameObject.name + ".");
     }
 }
