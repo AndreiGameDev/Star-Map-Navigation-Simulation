@@ -9,19 +9,22 @@ public class RouteDefiner : MonoBehaviour
     }
     Star StartPointStar;
     Star EndPointStar;
-
-    List<Star> starRoute = new List<Star>();
-    List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
+    //All stars in the hiearchy
     List<Star> galaxyStarList = new List<Star>();
+    // All stars inside the path
+    List<Star> starRoute = new List<Star>();
+    // All star path connectors
+    List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
     MapGenerator mapGenerator;
 
     [Header("StarMaterials")]
     [SerializeField] Material defaultStarMaterial;
     [SerializeField] Material startPointStarMaterial;
     [SerializeField] Material endPointStarMaterial;
+    [SerializeField] Material starPathMaterial;
     [Header("StarConnectorMaterials")]
     [SerializeField] Material defaultStarConnectorMaterial;
-    [SerializeField] Material selectedPathMaterial;
+    [SerializeField] Material routePathMaterial;
     private void Awake() {
         instance = this;
 
@@ -59,7 +62,14 @@ public class RouteDefiner : MonoBehaviour
             Star startStar = starRoute[i];
             Star destinationStar = starRoute[i + 1];
             starRouteConnectors.Add(startStar.routeConnectors[destinationStar]);
-        }   
+        }
+        // Colour route connectors and star paths
+        for(int i = 1; i < starRoute.Count - 1; i++) {
+            starRoute[i].meshRenderer.material = starPathMaterial;
+        }
+        foreach(LineRenderer route in starRouteConnectors) {
+            route.material = routePathMaterial;
+        }
     }
 
     public List<Star> FindPath(Star startStar, Star endGoalStar) {
