@@ -50,13 +50,8 @@ public class RouteDefiner : MonoBehaviour
             Debug.Log("Start Point and End Point are both already set.");
         }
     }
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.F)) {
-            LocatePathAndConnectors();
-        }
-    }
 
-    private void LocatePathAndConnectors() {
+    public void LocatePathAndConnectors() {
         starRoute = FindPath(StartPointStar, EndPointStar);
         for(int i = 0; i < starRoute.Count - 1; i++) {
             Star startStar = starRoute[i];

@@ -47,7 +47,6 @@ public class MapGenerator : MonoBehaviour
                 Stars.Add(tempObjectInformation.GetComponent<Star>());
                 tempObjectInformation = null;
             } else {
-                Debug.LogWarning("Prevented a star from overlapping");
                 i--;
             }
         }
