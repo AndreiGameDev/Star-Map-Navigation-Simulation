@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -692,7 +692,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30875573, y: -0.00054553413, z: -0.0009346407, w: 0.9511408}
-  m_LocalPosition: {x: -77.7, y: -32.1, z: 4}
+  m_LocalPosition: {x: -77.6, y: 14.400002, z: -60.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1017,10 +1017,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6342861a83b4d845a734db5ba9dc610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerRadius: 68.9
-  outerRadius: 20.9
-  verticalLimit: 18
-  starDisplacement: 25.6
+  innerRadius: 91
+  outerRadius: 35.7
+  verticalLimit: 30.5
+  starDisplacement: 54.9
   starPrefab: {fileID: 4609314741447827720, guid: aee3c20eaa486114fb8d94158d13e381,
     type: 3}
   starsToSpawn: 500
@@ -2339,7 +2339,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2017456745}
   m_HandleRect: {fileID: 2017456744}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2408,7 +2408,7 @@ Transform:
   m_GameObject: {fileID: 1860692194}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -77.7, y: -32.1, z: 4}
+  m_LocalPosition: {x: -77.7, y: 10.5, z: -56.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
