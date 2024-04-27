@@ -104,8 +104,6 @@ public class RouteDefiner : MonoBehaviour {
                     starRoute = starData.pathToEndPoint;
                 }
             }
-            
-            //starRoute = FindPath(StartPointStar, EndPointStar);
             for(int i = 0; i < starRoute.Count - 1; i++) {
                 Star startStar = starRoute[i];
                 Star destinationStar = starRoute[i + 1];
