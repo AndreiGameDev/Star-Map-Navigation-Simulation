@@ -14,22 +14,23 @@ public class Star : MonoBehaviour
     private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
         maxRoutes = Random.Range(0, 3);
-        RaycastHit[] stars = Physics.SphereCastAll(transform.position, rangeToCheck, transform.forward, rangeToCheck);
-        if(stars.Length > 0) {
-            for(int i = 0; i < maxRoutes; i++) {
-                int index = Random.Range(0, stars.Length);
-                Star star = stars[index].transform.GetComponent<Star>();
-                if(!routeDictionary.ContainsKey(star)) {
-                    float distance = Vector3.Distance(transform.position, star.transform.position);
-                    //https://discussions.unity.com/t/round-float-with-2-decimal/81611/3
-                    distance = System.MathF.Round(distance, 2);
-                    routeDictionary.Add(star, distance);
-                    if(!star.routeDictionary.ContainsKey(this)) {
-                        star.routeDictionary.Add(this, distance);
+        if(maxRoutes > 0) {
+            RaycastHit[] stars = Physics.SphereCastAll(transform.position, rangeToCheck, transform.forward, rangeToCheck);
+            if(stars.Length > 0) {
+                for(int i = 0; i < maxRoutes; i++) {
+                    int index = Random.Range(0, stars.Length);
+                    Star star = stars[index].transform.GetComponent<Star>();
+                    if(!routeDictionary.ContainsKey(star)) {
+                        float distance = Vector3.Distance(transform.position, star.transform.position);
+                        //https://discussions.unity.com/t/round-float-with-2-decimal/81611/3
+                        distance = System.MathF.Round(distance, 2);
+                        routeDictionary.Add(star, distance);
+                        if(!star.routeDictionary.ContainsKey(this)) {
+                            star.routeDictionary.Add(this, distance);
+                        }
                     }
                 }
             }
-            
         }
     }
 

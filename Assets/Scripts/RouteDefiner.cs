@@ -12,7 +12,9 @@ public class RouteDefiner : MonoBehaviour {
     //All stars in the hiearchy
     List<Star> galaxyStarList = new List<Star>();
     // All stars inside the path
-    List<Star> starRoute = new List<Star>();
+    [SerializeField]List<Star> starRoute = new List<Star>();
+    // Potential routes for star selection
+    List<Star> potentialStarRoutes = new List<Star>();
     // All star path connectors
     List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
     MapGenerator mapGenerator;
@@ -33,28 +35,47 @@ public class RouteDefiner : MonoBehaviour {
     }
     private void Start() {
         galaxyStarList = mapGenerator.Stars;
+        PrecalculateStarRoutePaths();
+    }
+
+    private void PrecalculateStarRoutePaths() {
         foreach(Star StartPoint in galaxyStarList) {
             for(int i = 0; i < galaxyStarList.Count; i++) {
                 Star Destination = galaxyStarList[i];
                 if(StartPoint == Destination) {
                     break;
                 } else {
-                    List<Star> tempStarList = new List<Star>();
-                    tempStarList = FindPath(StartPoint, Destination);
-                    if(tempStarList.Count > 0) {
-                        AddTostarRoutesDictionary(starRoutesDictionary, StartPoint, new StarPathData(Destination, tempStarList));
-                        tempStarList.Reverse();
-                        StarPathData tempStarData = new StarPathData(StartPoint, tempStarList);
-                        if(starRoutesDictionary.ContainsKey(Destination) && starRoutesDictionary[Destination].Contains(tempStarData)) {
-                            AddTostarRoutesDictionary(starRoutesDictionary, Destination, tempStarData);
-                        }
+                    if(ReturnsPath(StartPoint, Destination)) {
+                        AddTostarRoutesDictionary(starRoutesDictionary, StartPoint, new StarPathData(Destination, FindPath(StartPoint, Destination)));
                     }
                 }
             }
         }
-        Debug.Log(starRoutesDictionary.Count);
     }
 
+    void AvailableEndPointShowcase() {
+        if(starRoutesDictionary.ContainsKey(StartPointStar)) {
+            foreach(StarPathData starPathData in starRoutesDictionary[StartPointStar]) {
+                potentialStarRoutes.Add(starPathData.endPoint);
+            }
+            foreach(Star star in potentialStarRoutes) {
+                star.meshRenderer.material = starPathMaterial;
+            }
+        }
+    }
+
+    void ResetPotentialEndPoints() {
+        foreach(Star star in potentialStarRoutes) {
+            star.meshRenderer.material = defaultStarMaterial;
+        }
+    }
+    bool ReturnsPath(Star star1, Star star2) {
+        if(FindPath(star1, star2).Count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     static void AddTostarRoutesDictionary(Dictionary<Star, List<StarPathData>> dictionary, Star key, StarPathData value) {
         if(dictionary.ContainsKey(key) == false) {
             dictionary[key] = new List<StarPathData>();
@@ -62,10 +83,12 @@ public class RouteDefiner : MonoBehaviour {
         dictionary[key].Add(value);
     }
     public void EventClickAction(Star star) {
-        if(StartPointStar == null) {
+        if(StartPointStar == null ) {
             StartPointStar = star;
             star.meshRenderer.material = startPointStarMaterial;
-        } else if(EndPointStar == null) {
+            AvailableEndPointShowcase();
+        } else if(EndPointStar == null && StartPointStar != star && potentialStarRoutes.Contains(star)) {
+            ResetPotentialEndPoints();
             EndPointStar = star;
             star.meshRenderer.material = endPointStarMaterial;
         } else {
@@ -74,9 +97,15 @@ public class RouteDefiner : MonoBehaviour {
     }
 
     public void LocatePathAndConnectors() {
-        if(StartPointStar != null && EndPointStar != null) {
+        if(StartPointStar != null && EndPointStar != null && starRoutesDictionary.ContainsKey(StartPointStar)) {
             ResetPath(true);
-            starRoute = FindPath(StartPointStar, EndPointStar);
+            foreach(StarPathData starData in starRoutesDictionary[StartPointStar]) {
+                if(starData.endPoint == EndPointStar) {
+                    starRoute = starData.pathToEndPoint;
+                }
+            }
+            
+            //starRoute = FindPath(StartPointStar, EndPointStar);
             for(int i = 0; i < starRoute.Count - 1; i++) {
                 Star startStar = starRoute[i];
                 Star destinationStar = starRoute[i + 1];
@@ -98,7 +127,7 @@ public class RouteDefiner : MonoBehaviour {
                 string distanceText = "";
                 if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
                     distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]];
-                    distanceText = distance + " Galaxy Miles away from destination.";
+                    distanceText = distance + " Galaxy Miles away from next star.";
                 } else {
                     distance = 0;
                     distanceText = "Destination point";
@@ -110,6 +139,7 @@ public class RouteDefiner : MonoBehaviour {
 
     public void ResetPath(bool isPathfinding) {
         if(starRouteConnectors.Count > 0 || starRoute.Count > 0) {
+            ResetPotentialEndPoints();
             ResetPathPoints(isPathfinding);
             foreach(Star star in starRoute) {
                 star.meshRenderer.material = defaultStarMaterial;
@@ -119,6 +149,7 @@ public class RouteDefiner : MonoBehaviour {
             }
             routeTextUI.text = "";
         } else {
+            ResetPotentialEndPoints();
             ResetPathPoints(isPathfinding);
         }
     }
