@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 246d4b1ad4a63004d8fcf3949494e5b3, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.02978895, g: 0.017727647, b: 0.01999595, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1066,15 +1066,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dede8d00862eef4481b8247273ee95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  routeTextUI: {fileID: 1671407607}
   defaultStarMaterial: {fileID: 2100000, guid: 9b5f5b52757c48d46a2bd7ed6d539808, type: 2}
   startPointStarMaterial: {fileID: 2100000, guid: e9c71471be91a5c46be3baa6d2d01202,
     type: 2}
   endPointStarMaterial: {fileID: 2100000, guid: 370902fc44d396743928f45bc9a62019,
     type: 2}
   starPathMaterial: {fileID: 2100000, guid: 884af7bfa07167a4fab17f30d7ac2c4c, type: 2}
-  defaultStarConnectorMaterial: {fileID: 2100000, guid: 983c68da79715224089b553a1c165fff,
-    type: 2}
-  routePathMaterial: {fileID: 2100000, guid: 4a2db7e1e3dc9244fbd944cda7026d7a, type: 2}
+  routePathMaterial: {fileID: 2100000, guid: 983c68da79715224089b553a1c165fff, type: 2}
 --- !u!1 &481412182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,7 +1297,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 573159565}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 445823355}
+        m_TargetAssemblyTypeName: RouteDefiner, Assembly-CSharp
+        m_MethodName: ResetPath
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &573159565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,26 +2082,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Star 1
-
-    Star 2
-
-    Star 3
-
-    Star 4
-
-    Star 5
-
-    Star 6
-
-    Star
-    7
-
-    Star 8
-
-    Star 9
-
-    Star 10'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
