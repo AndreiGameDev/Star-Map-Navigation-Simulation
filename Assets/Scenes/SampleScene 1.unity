@@ -1019,11 +1019,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innerRadius: 91
   outerRadius: 35.7
-  verticalLimit: 30.5
-  starDisplacement: 54.9
+  verticalLimit: 28.8
+  starDisplacement: 26.1
   starPrefab: {fileID: 4609314741447827720, guid: aee3c20eaa486114fb8d94158d13e381,
     type: 3}
-  starsToSpawn: 500
+  starsToSpawn: 53
   starHolderTransform: {fileID: 1398683787}
   Stars: []
 --- !u!4 &445823353
@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dede8d00862eef4481b8247273ee95d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starRoute: []
   routeTextUI: {fileID: 1671407607}
   defaultStarMaterial: {fileID: 2100000, guid: 9b5f5b52757c48d46a2bd7ed6d539808, type: 2}
   startPointStarMaterial: {fileID: 2100000, guid: e9c71471be91a5c46be3baa6d2d01202,
