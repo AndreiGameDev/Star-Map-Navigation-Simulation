@@ -5,7 +5,8 @@ using Random = UnityEngine.Random;
 public class Star : MonoBehaviour
 {
     // Route dictionary = Star routing to, Lenght.
-    public Dictionary<Star,float> routeDictionary = new Dictionary<Star, float>();
+    public Dictionary<Star,StarValues> routeDictionary = new Dictionary<Star, StarValues>();
+    
     [SerializeField] int maxRoutes;
     public float rangeToCheck = 10f;
     [SerializeField] GameObject RoutePreviewer;
@@ -14,7 +15,7 @@ public class Star : MonoBehaviour
     public int dangerValue;
     private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
-        maxRoutes = Random.Range(0, 3);
+        maxRoutes = Random.Range(0, 5);
         dangerValue = Random.Range(0, 100);
         if(maxRoutes > 0) {
             LooksForRoute();
@@ -40,9 +41,9 @@ public class Star : MonoBehaviour
         if(!routeDictionary.ContainsKey(star)) {
             float distance = Vector3.Distance(transform.position, star.transform.position);
             distance = System.MathF.Round(distance, 2);
-            routeDictionary.Add(star, distance);
+            routeDictionary.Add(star, new StarValues(distance, star.dangerValue));
             if(!star.routeDictionary.ContainsKey(this)) {
-                star.routeDictionary.Add(this, distance);
+                star.routeDictionary.Add(this, new StarValues(distance, dangerValue));
             }
         }
     }
@@ -61,6 +62,15 @@ public class Star : MonoBehaviour
                 lineRenderer.SetPosition(0, transform.position);
                 lineRenderer.SetPosition(1, star.transform.position);
             }
+        }
+    }
+
+    public class StarValues {
+        public float distance;
+        public int dangerLevel;
+        public StarValues(float a_distance, int a_dangerLevel) {
+            distance = a_distance;
+            dangerLevel = a_dangerLevel;
         }
     }
 }
