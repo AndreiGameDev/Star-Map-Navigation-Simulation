@@ -1,15 +1,19 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SwapCameraScript : MonoBehaviour {
     InputManager inputManager;
-    [SerializeField] GameObject angledCamera;
-    [SerializeField] GameObject freeCamera;
+    [SerializeField] GameObject cameraPlayer;
     [SerializeField] Image progressBar;
-    private Coroutine holdKeyCoroutine;
-    private bool isCoroutineActive;
-
+    private bool isCoroutineActive; // Need this to make sure coroutine has accurate checks if player is pressing input or not
+    PhysicsRaycaster physicsRaycaster;
+    CameraController cameraController;
+    private void Awake() {
+        cameraController = cameraPlayer.GetComponent<CameraController>();
+        physicsRaycaster = cameraController.GetComponent<PhysicsRaycaster>();
+    }
     private void Start() {
         inputManager = InputManager.Instance;
         isCoroutineActive = false;
@@ -17,10 +21,11 @@ public class SwapCameraScript : MonoBehaviour {
 
     private void Update() {
         if(!isCoroutineActive && IsHoldingSwapCameraKey()) {
-            holdKeyCoroutine = StartCoroutine(HoldKey());
+            StartCoroutine(HoldKey());
         }
     }
 
+    // Checks for key press in the appropriate UI
     bool IsHoldingSwapCameraKey() {
         switch(inputManager.currentInputeMode) {
             case InputMode.UI:
@@ -32,20 +37,22 @@ public class SwapCameraScript : MonoBehaviour {
         }
     }
 
+    // Swaps camera and inputs to the other mode
     void SwapCameraMode() {
         if(inputManager.currentInputeMode == InputMode.UI) {
             inputManager.SetInputMode(InputMode.FreeCamera);
-            freeCamera.SetActive(true);
-            angledCamera.SetActive(false);
+            physicsRaycaster.enabled = false;
+            cameraController.enabled = true;
         } else if(inputManager.currentInputeMode == InputMode.FreeCamera) {
             inputManager.SetInputMode(InputMode.UI);
-            angledCamera.SetActive(true);
-            freeCamera.SetActive(false);
+            physicsRaycaster.enabled = true;
+            cameraController.enabled = false;
         }
     }
 
+    // Timer animation and making sure it updates accordingly to the hold time and it resets when not pressed
     IEnumerator HoldKey() {
-        isCoroutineActive = true;  // Set flag when coroutine starts
+        isCoroutineActive = true;
         float timer = 0f;
         float targetTime = 1f;
         while(IsHoldingSwapCameraKey()) {
@@ -55,12 +62,12 @@ public class SwapCameraScript : MonoBehaviour {
             if(timer > targetTime) {
                 SwapCameraMode();
                 progressBar.fillAmount = 0f;
-                break;  // Break the loop after task completion
+                break;
             }
 
             yield return null;
         }
         progressBar.fillAmount = 0f;
-        isCoroutineActive = false;  // Reset flag when coroutine ends
+        isCoroutineActive = false;
     }
 }

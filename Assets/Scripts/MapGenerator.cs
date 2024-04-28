@@ -44,6 +44,7 @@ public class MapGenerator : MonoBehaviour
                 // Instantiate the starPrefab
                 GameObject tempObjectInformation = Instantiate(starPrefab, spawnPosition, Quaternion.identity, starHolderTransform);
                 tempObjectInformation.name = nameGenerator.GenerateNameString();
+                tempObjectInformation.GetComponent<Star>().rangeToCheck = starDisplacement + 1;
                 Stars.Add(tempObjectInformation.GetComponent<Star>());
                 tempObjectInformation = null;
             } else {

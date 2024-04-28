@@ -7,33 +7,49 @@ public class Star : MonoBehaviour
     // Route dictionary = Star routing to, Lenght.
     public Dictionary<Star,float> routeDictionary = new Dictionary<Star, float>();
     [SerializeField] int maxRoutes;
-    [SerializeField] float rangeToCheck = 10f;
+    public float rangeToCheck = 10f;
     [SerializeField] GameObject RoutePreviewer;
     public MeshRenderer meshRenderer;
     public Dictionary<Star, LineRenderer> routeConnectors = new Dictionary<Star, LineRenderer>();
+    public int dangerValue;
     private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
         maxRoutes = Random.Range(0, 3);
+        dangerValue = Random.Range(0, 100);
         if(maxRoutes > 0) {
-            RaycastHit[] stars = Physics.SphereCastAll(transform.position, rangeToCheck, transform.forward, rangeToCheck);
-            if(stars.Length > 0) {
-                for(int i = 0; i < maxRoutes; i++) {
-                    int index = Random.Range(0, stars.Length);
-                    Star star = stars[index].transform.GetComponent<Star>();
-                    if(!routeDictionary.ContainsKey(star)) {
-                        float distance = Vector3.Distance(transform.position, star.transform.position);
-                        distance = System.MathF.Round(distance, 2);
-                        routeDictionary.Add(star, distance);
-                        if(!star.routeDictionary.ContainsKey(this)) {
-                            star.routeDictionary.Add(this, distance);
-                        }
-                    }
-                }
-            }
+            LooksForRoute();
         }
     }
 
     private void Start() {
+        AssignsRouteConnectorPositions();
+    }
+
+    private void LooksForRoute() {
+        RaycastHit[] stars = Physics.SphereCastAll(transform.position, rangeToCheck, transform.forward, rangeToCheck);
+        if(stars.Length > 0) {
+            for(int i = 0; i < maxRoutes; i++) {
+                int index = Random.Range(0, stars.Length);
+                Star star = stars[index].transform.GetComponent<Star>();
+                AssignRouteInDictionary(star);
+            }
+        }
+    }
+
+    private void AssignRouteInDictionary(Star star) {
+        if(!routeDictionary.ContainsKey(star)) {
+            float distance = Vector3.Distance(transform.position, star.transform.position);
+            distance = System.MathF.Round(distance, 2);
+            routeDictionary.Add(star, distance);
+            if(!star.routeDictionary.ContainsKey(this)) {
+                star.routeDictionary.Add(this, distance);
+            }
+        }
+    }
+
+    
+
+    private void AssignsRouteConnectorPositions() {
         foreach(Star star in routeDictionary.Keys) {
             if(!routeConnectors.ContainsKey(star)) {
                 GameObject tempObject = Instantiate(RoutePreviewer, transform.position, Quaternion.identity, transform);
