@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RouteDefiner : MonoBehaviour {
     private static RouteDefiner instance;
@@ -20,7 +21,7 @@ public class RouteDefiner : MonoBehaviour {
     List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
     MapGenerator mapGenerator;
     [SerializeField] TextMeshProUGUI routeTextUI;
-
+    [SerializeField] GameObject image;
     Dictionary<Star, List<StarRoute>> starRoutesDictionary = new Dictionary<Star, List<StarRoute>>();
     [Header("StarMaterials")]
     [SerializeField] Material defaultStarMaterial;
@@ -36,7 +37,6 @@ public class RouteDefiner : MonoBehaviour {
     }
     private void Start() {
         galaxyStarList = mapGenerator.Stars;
-        PrecalculateStarRoutePaths();
     }
     public void EventClickAction(Star star) { // Click interaction with the route pathfinder
         // If the start star is not assigned then assign it
@@ -44,6 +44,7 @@ public class RouteDefiner : MonoBehaviour {
         if(StartPointStar == null) {
             StartPointStar = star;
             star.meshRenderer.material = startPointStarMaterial;
+            PrecalculateStarRoutePaths(star);
             AvailableEndPointShowcase();
         } else if(EndPointStar == null && StartPointStar != star && potentialStarRoutes.Contains(star)) {
             ResetPotentialEndPoints();
@@ -123,8 +124,9 @@ public class RouteDefiner : MonoBehaviour {
             ResetPathPoints(isPathfinding);
         }
     }
-    private void PrecalculateStarRoutePaths() {
-        foreach(Star StartPoint in galaxyStarList) {
+    private void PrecalculateStarRoutePaths(Star StartPoint) {
+        if(!starRoutesDictionary.ContainsKey(StartPoint)) {
+            // Display Image to explain paths are being calculated
             for(int i = 0; i < galaxyStarList.Count; i++) {
                 Star Destination = galaxyStarList[i];
                 if(StartPoint == Destination) {
@@ -135,6 +137,7 @@ public class RouteDefiner : MonoBehaviour {
                     }
                 }
             }
+            // Turn off image 
         }
     }
     void AvailableEndPointShowcase() {
