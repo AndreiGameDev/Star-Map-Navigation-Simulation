@@ -15,7 +15,7 @@ public class Star : MonoBehaviour
     public int dangerValue;
     private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
-        maxRoutes = Random.Range(0, 5);
+        maxRoutes = Random.Range(0, 3);
         dangerValue = Random.Range(0, 100);
         if(maxRoutes > 0) {
             LooksForRoute();
