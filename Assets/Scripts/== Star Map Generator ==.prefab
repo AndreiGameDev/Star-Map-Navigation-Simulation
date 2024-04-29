@@ -1,0 +1,720 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6123076758078360534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 565766602038291505}
+  - component: {fileID: 318173507534660350}
+  - component: {fileID: 6488338120837049968}
+  - component: {fileID: 4371799643447855397}
+  m_Layer: 0
+  m_Name: == Star Map Generator ==
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &565766602038291505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123076758078360534}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1402990189678585295}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &318173507534660350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123076758078360534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6342861a83b4d845a734db5ba9dc610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  innerRadius: 91
+  outerRadius: 35.7
+  verticalLimit: 28.8
+  starDisplacement: 26.1
+  starPrefab: {fileID: 4609314741447827720, guid: aee3c20eaa486114fb8d94158d13e381,
+    type: 3}
+  starsToSpawn: 53
+  starHolderTransform: {fileID: 1402990189678585295}
+  Stars: []
+--- !u!114 &6488338120837049968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123076758078360534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edb1f6c06076cb479b8f16d4d2dbf78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allNames:
+  - Achernar
+  - Sualocin
+  - Rotanev
+  - Acrux
+  - Grumium
+  - Polaris
+  - Bellatrix
+  - Tegmine
+  - Ancha
+  - Situla
+  - Merga
+  - Absolutno
+  - Alasia
+  - Muscida
+  - Amadioha
+  - Amansinaya
+  - Anadolu
+  - Aniara
+  - Tarazed
+  - Nekkar
+  - Mirzam
+  - Menkalinan
+  - Aludra
+  - Adhara
+  - Hamal
+  - Sheratan
+  - Sadachbia
+  - Sadalsuud
+  - Sadalmelik
+  - Izar
+  - Aspidiske
+  - Al-butain
+  - Naos
+  - Mimosa
+  - Miaplacidus
+  - Propus
+  - Chara
+  - Altair
+  - Skat
+  - Acubens
+  - Acrab
+  - "Arcal\xEDs"
+  - Ascella
+  - Atakoraka
+  - Paikauhale
+  - "Ax\xF3lotl"
+  - Ayeyarwady
+  - Baekdu
+  - Belel
+  - "B\xE9l\xE9nos"
+  - Berehynia
+  - "Bibh\u0101"
+  - Bosona
+  - Bubup
+  - Buna
+  - Castula
+  - Ceibo
+  - Chalawan
+  - Chaophraya
+  - "Chaso\u0148"
+  - Chechia
+  - Tianguan
+  - Tianyi
+  - "Cital\xE1"
+  - Cocibolca
+  - Atria
+  - Gacrux
+  - Fang
+  - Kang
+  - Zhang
+  - Dingolay
+  - "D\xECw\xF6"
+  - Diya
+  - Dofida
+  - Dombay
+  - Ebla
+  - Emiw
+  - Saclateni
+  - Fafnir
+  - Felixvarela
+  - Flegetonte
+  - Formosa
+  - Franz
+  - Antares
+  - The bear Watcher
+  - Canopus
+  - Castor
+  - Procyon
+  - Sirius
+  - Wezen
+  - Adhil
+  - Albali
+  - Zosma
+  - Kornephoros
+  - Syrma
+  - Veritate
+  - Cujam
+  - Sceptrum
+  - Asellus Borealis
+  - Asellus Australis
+  - Funi
+  - Gakyid
+  - Ginan
+  - Gudja
+  - Gumala
+  - Guniibuu
+  - Helvetios
+  - Illyrian
+  - Hoggar
+  - Horna
+  - "Hunahp\xFA"
+  - Hunor
+  - Gloas
+  - Pipoltr
+  - Inquill
+  - Intan
+  - Intercrus
+  - Avior
+  - Peacock
+  - Irena
+  - Itonda
+  - Spica
+  - Capella
+  - Mira
+  - Proxima Centauri
+  - Kamuy
+  - Karaka
+  - Kaveh
+  - Koeia
+  - Koit
+  - Lilii Borea
+  - Larawag
+  - Lerna
+  - Libertas
+  - Lich
+  - Liesma
+  - Lionrock
+  - "Lusit\xE2nia"
+  - Macondo
+  - Mago
+  - Mahsati
+  - Malmok
+  - "M\xE1rohu"
+  - Mazalaai
+  - Cervantes
+  - Moldoveanu
+  - "M\xF6nch"
+  - Montuno
+  - Morava
+  - Moriah
+  - Mouhoun
+  - Mpingo
+  - Sargas
+  - Nunki
+  - Musica
+  - Muspelheim
+  - Naledi
+  - Nembus
+  - Segin
+  - Hassaleh
+  - Hatysa
+  - Kraz
+  - Heze
+  - Sarin
+  - Barnard's Star
+  - "N\xE1sti"
+  - Natasha
+  - Nenque
+  - Nervia
+  - Copernicus
+  - Nikawiy
+  - Nosaxa
+  - Nushagak
+  - Nyamien
+  - Ogma
+  - Parumleo
+  - Petra
+  - Phoenicia
+  - Pincoya
+  - Poerava
+  - Ran
+  - Rapeto
+  - Algedi
+  - Rosaliadecastro
+  - Sagarmatha
+  - "S\u0101maya"
+  - Sansuna
+  - Shama
+  - Sharjah
+  - Sika
+  - Xuange
+  - Taiyi
+  - Solaris
+  - Beemim
+  - Stribor
+  - Taika
+  - Tangra
+  - Tapecue
+  - Tevel
+  - Haedus
+  - Shaula
+  - Citadelle
+  - Alkalurops
+  - Albireo
+  - Muphrid
+  - Mesarthim
+  - Almach
+  - Muliphein
+  - Vindemiatrix
+  - Seginus
+  - Lucilinburhuc
+  - Imai
+  - Cor Caroli
+  - Regulus
+  - Porrima
+  - Alpheratz
+  - Sterrennacht
+  - Kalausi
+  - Chamukuy
+  - Pipirima
+  - Celaeno
+  - Electra
+  - Taygeta
+  - Maia
+  - Asterope
+  - Merope
+  - Alcyone
+  - Atlas
+  - Pleione
+  - Pollux
+  - Timir
+  - Tislit
+  - Titawin
+  - Tojil
+  - Tonatiuh
+  - Fuyue
+  - Fulu
+  - Taiyangshou
+  - Jishui
+  - Tuiren
+  - "Tup\xE3"
+  - Tupi
+  - Uklun
+  - Furud
+  - Mirach
+  - Unurgunite
+  - Uruk
+  - Wurren
+  - Xihe
+  - Okab
+  - Alshain
+  - Bunda
+  - Bharani
+  - Almaaz
+  - Mahasim
+  - Alshat
+  - Dabih
+  - Nashira
+  - Deneb Algedi
+  - Caph
+  - Schedar
+  - Ruchbah
+  - Achird
+  - Hadar
+  - Menkent
+  - Toliman
+  - Rigil Kentaurus
+  - Alderamin
+  - Alfirk
+  - Kurhah
+  - Errai
+  - Diphda
+  - Baten Kaitos
+  - Kaffaljidhma
+  - Menkar
+  - Nganurganity
+  - Gomeisa
+  - Tarf
+  - Meleph
+  - Nahn
+  - Piautos
+  - Phact
+  - Wazn
+  - Elkurud
+  - Diadem
+  - Meridiana
+  - Nusakan
+  - Alphecca
+  - Alkes
+  - Alchiba
+  - Gienah
+  - Algorab
+  - La Superba
+  - Fawaris
+  - Sadr
+  - Deneb
+  - Aljanah
+  - Azelfafage
+  - Aldulfin
+  - Thuban
+  - Edasich
+  - Athebyne
+  - Alrakis
+  - Aldhibah
+  - Rastaban
+  - Dziban
+  - Alruba
+  - Eltanin
+  - Altais
+  - Alsafi
+  - Giausar
+  - Kitalpha
+  - Angetenar
+  - Azha
+  - Acamar
+  - Zibal
+  - Zaurak
+  - Beid
+  - Keid
+  - Cursa
+  - Rana
+  - Theemin
+  - Dalim
+  - Tejat
+  - Alhena
+  - Mebsuta
+  - Alzirr
+  - Mekbuda
+  - Wasat
+  - Geminga
+  - Aldhanab
+  - Alnair
+  - Tiaki
+  - Marsic
+  - Rasalgethi
+  - Maasym
+  - Minchir
+  - Alphard
+  - Ukdah
+  - Ashlesha
+  - Felis
+  - Alterf
+  - Subra
+  - Rasalas
+  - Adhafera
+  - Algieba
+  - Chertan
+  - Denebola
+  - Nihal
+  - Arneb
+  - Zubenelgenubi
+  - Zubeneschamali
+  - Zubenelhakrabi
+  - Brachium
+  - Praecipua
+  - Alsciaukat
+  - Vega
+  - Sheliak
+  - Sulafat
+  - Aladfar
+  - Polaris Australis
+  - Yed Prior
+  - Yed Posterior
+  - Marfik
+  - Sabik
+  - Rasalhague
+  - Cebalrai
+  - Tabit
+  - Rigel
+  - Mintaka
+  - Meissa
+  - Alnilam
+  - Alnitak
+  - Saiph
+  - Betelgeuse
+  - Algenib
+  - Enif
+  - Biham
+  - Homam
+  - Matar
+  - Sadalbari
+  - Scheat
+  - Markab
+  - Alkarab
+  - Salm
+  - Algol
+  - Misam
+  - Mirfak
+  - Atik
+  - Menkib
+  - Miram
+  - Ankaa
+  - Fomalhaut
+  - Alpherg
+  - Alrescha
+  - Fumalsamakah
+  - Revati
+  - Torcular
+  - Tureis
+  - Azmidi
+  - Dschubba
+  - Iklil
+  - Jabbah
+  - Alniyat
+  - Lesath
+  - Xamidimura
+  - Unukalhai
+  - Alya
+  - Sham
+  - Alnasl
+  - Kaus Media
+  - Kaus Australis
+  - Kaus Borealis
+  - Ainalrami
+  - Albaldah
+  - Arkab Prior
+  - Arkab Posterior
+  - Rukbat
+  - Polis
+  - Terebellum
+  - Ain
+  - Aldebaran
+  - Elnath
+  - Prima Hyadum
+  - Secunda Hyadum
+  - Mothallah
+  - Talitha
+  - Alkaphrah
+  - Tania Borealis
+  - Tania Australis
+  - Merak
+  - Dubhe
+  - Alula Australis
+  - Alula Borealis
+  - Phecda
+  - Megrez
+  - Alioth
+  - Mizar
+  - Alcor
+  - Alkaid
+  - Kochab
+  - Pherkad
+  - Yildun
+  - Alsephina
+  - Suhail
+  - Markeb
+  - Zavijava
+  - Zaniah
+  - Minelauva
+  - Elgafar
+  - Khambalia
+  - Anser
+  - Aatrox
+  - Ahri
+  - Akali
+  - Alistar
+  - Amumu
+  - Anivia
+  - Annie
+  - Ashe
+  - Aurelion Sol
+  - Azir
+  - Bard
+  - Blitzcrank
+  - Brand
+  - Braum
+  - Caitlyn
+  - Camille
+  - Cassiopeia
+  - Cho'Gath
+  - Corki
+  - Darius
+  - Diana
+  - Dr. Mundo
+  - Draven
+  - Ekko
+  - Elise
+  - Evelynn
+  - Ezreal
+  - Fiddlesticks
+  - Fiora
+  - Fizz
+  - Galio
+  - Gangplank
+  - Garen
+  - Gnar
+  - Gragas
+  - Graves
+  - Hecarim
+  - Heimerdinger
+  - Illaoi
+  - Irelia
+  - Ivern
+  - Janna
+  - Jarvan IV
+  - Jax
+  - Jayce
+  - Jhin
+  - Jinx
+  - Kai'Sa
+  - Kalista
+  - Karma
+  - Karthus
+  - Kassadin
+  - Katarina
+  - Kayle
+  - Kayn
+  - Kennen
+  - Kha'Zix
+  - Kindred
+  - Kled
+  - Kog'Maw
+  - LeBlanc
+  - Lee Sin
+  - Leona
+  - Lissandra
+  - Lucian
+  - Lulu
+  - Lux
+  - Malphite
+  - Malzahar
+  - Maokai
+  - Master Yi
+  - Miss Fortune
+  - Mordekaiser
+  - Morgana
+  - Nami
+  - Nasus
+  - Nautilus
+  - Neeko
+  - Nidalee
+  - Nocturne
+  - Nunu & Willump
+  - Olaf
+  - Orianna
+  - Ornn
+  - Pantheon
+  - Poppy
+  - Pyke
+  - Qiyana
+  - Quinn
+  - Rakan
+  - Rammus
+  - Rek'Sai
+  - Renekton
+  - Rengar
+  - Riven
+  - Rumble
+  - Ryze
+  - Sejuani
+  - Shaco
+  - Shen
+  - Shyvana
+  - Singed
+  - Sion
+  - Sivir
+  - Skarner
+  - Sona
+  - Soraka
+  - Swain
+  - Sylas
+  - Syndra
+  - Tahm Kench
+  - Taliyah
+  - Talon
+  - Taric
+  - Teemo
+  - Thresh
+  - Tristana
+  - Trundle
+  - Tryndamere
+  - Twisted Fate
+  - Twitch
+  - Udyr
+  - Urgot
+  - Varus
+  - Vayne
+  - Veigar
+  - Vel'Koz
+  - Vii
+  - Viktor
+  - Vladimir
+  - Volibear
+  - Warwick
+  - Wukong
+  - Xayah
+  - Xerath
+  - Xin Zhao
+  - Yasuo
+  - Yorick
+  - Yuumi
+  - Zac
+  - Zed
+  - Ziggs
+  - Zilean
+  - Zoe
+  - Zyra
+--- !u!114 &4371799643447855397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6123076758078360534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dede8d00862eef4481b8247273ee95d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starRoute: []
+  routeTextUI: {fileID: 0}
+  defaultStarMaterial: {fileID: 2100000, guid: 9b5f5b52757c48d46a2bd7ed6d539808, type: 2}
+  startPointStarMaterial: {fileID: 2100000, guid: e9c71471be91a5c46be3baa6d2d01202,
+    type: 2}
+  endPointStarMaterial: {fileID: 2100000, guid: 370902fc44d396743928f45bc9a62019,
+    type: 2}
+  starPathMaterial: {fileID: 2100000, guid: 884af7bfa07167a4fab17f30d7ac2c4c, type: 2}
+  routePathMaterial: {fileID: 2100000, guid: 983c68da79715224089b553a1c165fff, type: 2}
+--- !u!1 &7764807226714615214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402990189678585295}
+  m_Layer: 0
+  m_Name: StarHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1402990189678585295
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764807226714615214}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 88.75191, y: 55.226974, z: 41.694767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 565766602038291505}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

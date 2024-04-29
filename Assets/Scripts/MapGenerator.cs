@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.TerrainTools;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -12,7 +10,7 @@ public class MapGenerator : MonoBehaviour
     [Range(1, 50)]
     public float verticalLimit = 15;
     [Range(10, 100)]
-    public float starDisplacement = 15;
+    public float starDisplacement = 25;
 
     [SerializeField] GameObject starPrefab;
     [Range(1,500)]
@@ -23,7 +21,7 @@ public class MapGenerator : MonoBehaviour
     private void Awake() {
         nameGenerator = GetComponent<StarMapNameGenerator>();
     }
-    private void Start() {
+    private void OnEnable() {
         for(int i = 0; i < starsToSpawn; i++) {
             // Generate a random angle
             float angle = Random.Range(0f, Mathf.PI * 2);

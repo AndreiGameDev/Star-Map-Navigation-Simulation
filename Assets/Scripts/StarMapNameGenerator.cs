@@ -4,11 +4,10 @@ using System.IO;
 public class StarMapNameGenerator : MonoBehaviour
 {
     [SerializeField]string[] allNames;
-    private void Awake() {
+    public void AddNames() {
         string filePath = Path.Combine(Application.dataPath, "StarNameData.txt");
         allNames = File.ReadAllLines(filePath);
     }
-
     public void PrintRandomNames(int count) {
         for(int i = 0; i < count; i++) {
             Debug.Log(GenerateNameString());
@@ -16,7 +15,8 @@ public class StarMapNameGenerator : MonoBehaviour
     }
 
     public string GenerateNameString() {
-        int randomInteger = Random.Range(0, allNames.Length);
+        int randomInteger = Random.Range(0, allNames.Length-1);
+        Debug.Log(allNames.Length);
         return allNames[randomInteger];
     }
 }

@@ -117,6 +117,7 @@ public class RouteDefiner : MonoBehaviour {
             foreach(LineRenderer route in starRouteConnectors) {
                 route.gameObject.SetActive(false);
             }
+            starRouteConnectors.Clear();
             routeTextUI.text = "";
         } else {
             ResetPotentialEndPoints();
