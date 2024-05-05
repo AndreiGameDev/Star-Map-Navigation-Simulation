@@ -3,29 +3,46 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    [Range(5, 100)] 
+    
     public float innerRadius = 60;
-    [Range(1, 50)]
     public float outerRadius = 11;
-    [Range(1, 50)]
     public float verticalLimit = 15;
-    [Range(10, 100)]
     public float starDisplacement = 25;
-
     [SerializeField] GameObject starPrefab;
-    [Range(1,500)]
     [SerializeField] int starsToSpawn = 100;
     [SerializeField] Transform starHolderTransform;
     StarMapNameGenerator nameGenerator;
     public List<Star> Stars = new List<Star>();
+    string keyInnerRadius = MapGenerationKeys.KeyInnerRadius();
+    string keyOuterRadius = MapGenerationKeys.KeyOuterRadius();
+    string keyVerticalLimit = MapGenerationKeys.KeyVerticalLimit();
+    string keyStarDisplacement = MapGenerationKeys.KeyStarDisplacement();
+    string keyStarsToSpawn = MapGenerationKeys.KeyStarsToSpawn();
     private void Awake() {
         nameGenerator = GetComponent<StarMapNameGenerator>();
+        if(PlayerPrefs.HasKey(keyInnerRadius)) {
+            innerRadius = PlayerPrefs.GetFloat(keyInnerRadius);
+        }
+        if(PlayerPrefs.HasKey(keyOuterRadius)) {
+            outerRadius = PlayerPrefs.GetFloat(keyOuterRadius);
+        }
+        if(PlayerPrefs.HasKey(keyVerticalLimit)) {
+            verticalLimit = PlayerPrefs.GetFloat(keyVerticalLimit);
+        }
+        if(PlayerPrefs.HasKey(keyStarDisplacement)) {
+            starDisplacement = PlayerPrefs.GetFloat(keyStarDisplacement);
+        }
+        if(PlayerPrefs.HasKey(keyStarsToSpawn)) {
+            starsToSpawn = (int)PlayerPrefs.GetFloat(keyStarsToSpawn);
+        }
     }
+
+    
     private void OnEnable() {
         for(int i = 0; i < starsToSpawn; i++) {
             // Generate a random angle
             float angle = Random.Range(0f, Mathf.PI * 2);
-
+             
             // Generate a random distance from the center within the innerRadius
             float radius = innerRadius;
 

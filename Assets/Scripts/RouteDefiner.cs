@@ -17,6 +17,8 @@ public class RouteDefiner : MonoBehaviour {
     [SerializeField] List<Star> starRoute = new List<Star>();
     // Potential routes for star selection
     List<Star> potentialStarRoutes = new List<Star>();
+    // Route Connectors for potential star routes
+    List<LineRenderer> potentialStarRouteConnector = new List<LineRenderer>();
     // All star path connectors
     List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
     MapGenerator mapGenerator;
@@ -68,21 +70,26 @@ public class RouteDefiner : MonoBehaviour {
             HighLightStartAndEndPoint();
 
             // UI Text route display
-            foreach(Star star in starRoute) {
-                string text = routeTextUI.text;
-                float distance = 0;
-                string distanceText = "";
-                if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
-                    distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance; // Index needs to be + 1 coz it's calculating distance to next star
-                    distanceText = distance + " Galaxy Miles away from next star.";
-                } else {
-                    distance = 0;
-                    distanceText = "Destination point";
-                }
-                routeTextUI.text = text + (starRoute.IndexOf(star) + 1) + ". " + star.name + " - " + distanceText + "\n";
-            }
+            SetUITextRoute();
         }
     }
+
+    private void SetUITextRoute() {
+        foreach(Star star in starRoute) {
+            string text = routeTextUI.text;
+            float distance = 0;
+            string distanceText = "";
+            if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
+                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance; // Index needs to be + 1 coz it's calculating distance to next star
+                distanceText = distance + " Galaxy Miles away from next star.";
+            } else {
+                distance = 0;
+                distanceText = "Destination point";
+            }
+            routeTextUI.text = text + (starRoute.IndexOf(star) + 1) + ". " + star.name + " - " + distanceText + "\n";
+        }
+    }
+
     public void AutoSearchSafestRoute() {
         if(StartPointStar != null && EndPointStar != null && starRoutesDictionary.ContainsKey(StartPointStar)) {
             ResetPath(true);
@@ -92,22 +99,26 @@ public class RouteDefiner : MonoBehaviour {
             HighLightStartAndEndPoint();
             routeTextUI.text = "Found the most safe route available, displaying route with a danger level of: " + tempData.dangerLevel + ".\n";
             // UI Text route display
-            foreach(Star star in starRoute) {
-                string text = routeTextUI.text;
-                float distance = 0;
-                string distanceText = "";
-                if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
-                    distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance; // Index needs to be + 1 coz it's calculating distance to next star
-                    distanceText = distance + " Galaxy Miles away from next star.";
-                } else {
-                    distance = 0;
-                    distanceText = "Destination point";
-                }
-                routeTextUI.text = text + (starRoute.IndexOf(star) + 1) + ". " + star.name + " - " + distanceText + "\n";
-            }
+            SetUITextSafeRoute();
         }
     }
-    
+
+    private void SetUITextSafeRoute() {
+        foreach(Star star in starRoute) {
+            string text = routeTextUI.text;
+            float distance = 0;
+            string distanceText = "";
+            if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
+                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance; // Index needs to be + 1 coz it's calculating distance to next star
+                distanceText = distance + " Galaxy Miles away from next star.";
+            } else {
+                distance = 0;
+                distanceText = "Destination point";
+            }
+            routeTextUI.text = text + (starRoute.IndexOf(star) + 1) + ". " + star.name + " - " + distanceText + "\n";
+        }
+    }
+
     public void ResetPath(bool isPathfinding) { // Resets UI, Star colors, route connectors and cleans up route list
         if(starRouteConnectors.Count > 0 || starRoute.Count > 0) {
             ResetPotentialEndPoints();
@@ -117,7 +128,7 @@ public class RouteDefiner : MonoBehaviour {
             }
             foreach(LineRenderer route in starRouteConnectors) {
                 route.gameObject.SetActive(false);
-            }
+            }  
             starRouteConnectors.Clear();
             routeTextUI.text = "";
         } else {
@@ -146,6 +157,20 @@ public class RouteDefiner : MonoBehaviour {
             foreach(StarRoute starPathData in starRoutesDictionary[StartPointStar]) {
                 potentialStarRoutes.Add(starPathData.endPoint);
             }
+            // Loops through star route dictionary of start point star
+            for(int j =0;  j < starRoutesDictionary[StartPointStar].Count; j++) {
+                // Loops through every list of paths
+                for(int p =0; p < starRoutesDictionary[StartPointStar][j].pathToEndPoint.Count - 1; p++) {
+                    Star startStar = starRoutesDictionary[StartPointStar][j].pathToEndPoint[p];
+                    Star destinationStar = starRoutesDictionary[StartPointStar][j].pathToEndPoint[p + 1];
+                    if(potentialStarRouteConnector.Contains(startStar.routeConnectors[destinationStar]) == false) {
+                        potentialStarRouteConnector.Add(startStar.routeConnectors[destinationStar]);
+                    }
+                    foreach(LineRenderer line in potentialStarRouteConnector) {
+                        line.gameObject.SetActive(true);
+                    }
+                }
+            }
             foreach(Star star in potentialStarRoutes) {
                 star.meshRenderer.material = starPathMaterial;
             }
@@ -154,6 +179,9 @@ public class RouteDefiner : MonoBehaviour {
     void ResetPotentialEndPoints() {
         foreach(Star star in potentialStarRoutes) {
             star.meshRenderer.material = defaultStarMaterial;
+        }
+        foreach(LineRenderer line in potentialStarRouteConnector) {
+            line.gameObject.SetActive(false);
         }
     }
     bool ReturnsPath(Star star1, Star star2) {
@@ -180,10 +208,6 @@ public class RouteDefiner : MonoBehaviour {
             Star startStar = starRoute[i];
             Star destinationStar = starRoute[i + 1];
             starRouteConnectors.Add(startStar.routeConnectors[destinationStar]);
-        }
-        // Colour route connectors and star paths
-        for(int i = 1; i < starRoute.Count - 1; i++) {
-            starRoute[i].meshRenderer.material = starPathMaterial;
         }
         // Activate the route connectors
         foreach(LineRenderer route in starRouteConnectors) {
