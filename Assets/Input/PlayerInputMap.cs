@@ -65,7 +65,7 @@ public partial class @PlayerInputMap: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Float"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""07e5350f-0df7-4e78-b2a1-14bb48d685de"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
