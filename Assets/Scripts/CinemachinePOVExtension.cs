@@ -15,7 +15,7 @@ public class CinemachinePOVExtension : CinemachineExtension {
             if(startingRotation == null) {
                 startingRotation = transform.localRotation.eulerAngles;
             }
-            Vector2 input = inputManager.cameraInputs.CameraLook();
+            Vector2 input = inputManager.cameraLook;
             startingRotation.x += input.x * cameraSensitivity * Time.deltaTime;
             startingRotation.y += input.y * cameraSensitivity * Time.deltaTime;
             startingRotation.y = Mathf.Clamp(startingRotation.y, -clampAngle, clampAngle);

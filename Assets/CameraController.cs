@@ -1,14 +1,18 @@
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class CameraController : MonoBehaviour
 {
     InputManager inputManager;
-    [SerializeField] float cameraSpeed = 200f;
+    [SerializeField] float cameraSpeed = 100f;
     [SerializeField] float cameraSensitivity = 150f;
     float xRotation;
-    [SerializeField] Transform cameraHolder;
+
+    public GameObject cinemachineTargetGO;
+    Transform cameraTransform;
     private void Start() {
         inputManager = InputManager.Instance;
+        cameraTransform = Camera.main.transform;
     }
     private void Update() {
         Move();
@@ -26,19 +30,25 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
     void Move() {
-        Vector3 moveVector = inputManager.cameraInputs.CameraMove();
-        cameraHolder.position += moveVector.y * transform.forward * cameraSpeed * Time.deltaTime;
-        cameraHolder.position += moveVector.x * transform.right * cameraSpeed * Time.deltaTime;
-        if(inputManager.cameraInputs.CameraFloat()) {
-            cameraHolder.position += Vector3.up * cameraSpeed * Time.deltaTime;
+        Vector3 moveVector = inputManager.cameraMove;
+        transform.position += moveVector.y * cameraTransform.forward * cameraSpeed * Time.deltaTime;
+        transform.position += moveVector.x * transform.right * cameraSpeed * Time.deltaTime;
+        if(inputManager.cameraFloat) {
+            transform.position += Vector3.up * cameraSpeed * Time.deltaTime;
         }
     }
 
     void Look() { 
-        Vector2 lookVector = inputManager.cameraInputs.CameraLook();
+        Vector2 lookVector = inputManager.cameraLook;
+
         xRotation -= lookVector.y * cameraSensitivity * Time.deltaTime;
-        
-        cameraHolder.Rotate(Vector3.up * lookVector.x * cameraSensitivity * Time.deltaTime );
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        transform.Rotate(Vector3.up * lookVector.x * cameraSensitivity * Time.deltaTime);
+        cinemachineTargetGO.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    }
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax) {
+        if(lfAngle < -360f) lfAngle += 360f;
+        if(lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 }
