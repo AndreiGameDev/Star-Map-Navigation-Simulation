@@ -250,38 +250,6 @@ public class RouteDefiner : MonoBehaviour {
         return _starRoutesDangerLevel[0];
     }
 
-    public static StarRouteDistanceData FindLowestDistanceLevelRoute(List<List<Star>> StarRouteLists) {
-        List<StarRouteDistanceData> starRoutesDistanceInfo = new List<StarRouteDistanceData>();
-        float distance = 0;
-        foreach(List<Star> starlist in StarRouteLists) {
-            foreach(Star route in starlist) {
-                for(int i = 0; i < starlist.Count; i++) {
-                    if(i != starlist.Count) {
-                        Star destination = starlist[i + 1];
-                        distance += starlist[i].routeDictionary[destination].distance;
-                    }
-                }
-                starRoutesDistanceInfo.Add(new StarRouteDistanceData(starlist, distance));
-            }
-        }
-        return SortByLowestDistance(starRoutesDistanceInfo);
-    }
-
-    private static StarRouteDistanceData SortByLowestDistance(List<StarRouteDistanceData> _staRoutesDistanceData) {
-        for(int i = 0; i < _staRoutesDistanceData.Count; i++) {
-            for(int j = 0; j < _staRoutesDistanceData.Count - 1; j++) {
-                StarRouteDistanceData first = _staRoutesDistanceData[j];
-                StarRouteDistanceData second = _staRoutesDistanceData[j + 1];
-                if(first.distance < second.distance) {
-                    _staRoutesDistanceData[j] = second;
-                    _staRoutesDistanceData[j + 1] = first;
-                }
-            }
-        }
-
-        return _staRoutesDistanceData[0];
-    }
-
     public List<Star> FindPath(Star startStar, Star endGoalStar) {
         List<StarPath> priorityList = new List<StarPath>();
 

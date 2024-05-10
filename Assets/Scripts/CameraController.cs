@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
 {
     InputManager inputManager;
     [SerializeField] float cameraSpeed = 100f;
-    [SerializeField] float cameraSensitivity = 150f;
+    public float cameraSensitivity = 150f;
     float xRotation;
 
     public GameObject cinemachineTargetGO;
