@@ -7,7 +7,7 @@ public class SwapCameraScript : MonoBehaviour {
     InputManager inputManager;
     [SerializeField] GameObject cameraPlayer;
     [SerializeField] Image progressBar;
-    private bool isCoroutineActive; // Need this to make sure coroutine has accurate checks if player is pressing input or not
+    private bool isCoroutineActive;
     PhysicsRaycaster physicsRaycaster;
     CameraController cameraController;
 
@@ -28,7 +28,9 @@ public class SwapCameraScript : MonoBehaviour {
     }
 
 
-    // Swaps camera and inputs to the other mode
+    /// <summary>
+    /// Swaps camera and player inputs to Player or UI Mode
+    /// </summary>
     void SwapCameraMode() {
         if(inputManager.playerInput.currentActionMap == inputManager.uiMap) {
             inputManager.playerInput.SwitchCurrentActionMap("Player");
@@ -41,7 +43,9 @@ public class SwapCameraScript : MonoBehaviour {
         }
     }
 
-    // Timer animation and making sure it updates accordingly to the hold time and it resets when not pressed
+    /// <summary>
+    /// Coroutine used as animation for the hold time required to swap between Camera Modes
+    /// </summary>
     IEnumerator HoldKey() {
         isCoroutineActive = true;
         float timer = 0f;

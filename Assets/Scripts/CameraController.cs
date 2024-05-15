@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     InputManager inputManager;
     [SerializeField] float cameraSpeed = 100f;
     public float cameraSensitivity = 150f;
@@ -38,7 +37,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void Look() { 
+    void Look() {
         Vector2 lookVector = inputManager.cameraLook;
         xRotation -= lookVector.y * cameraSensitivity * Time.deltaTime;
         xRotation = ClampAngle(xRotation, -90f, 90f);

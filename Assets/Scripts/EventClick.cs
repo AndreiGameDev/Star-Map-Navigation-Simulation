@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class EventClick : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+public class EventClick : MonoBehaviour, IPointerClickHandler {
     RouteDefiner routeDefiner;
     Star star;
     private void Start() {
@@ -10,10 +10,5 @@ public class EventClick : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     }
     public void OnPointerClick(PointerEventData eventData) {
         routeDefiner.EventClickAction(star);
-    }
-    public void OnPointerEnter(PointerEventData eventData) {
-    }
-
-    public void OnPointerExit(PointerEventData eventData) {
     }
 }

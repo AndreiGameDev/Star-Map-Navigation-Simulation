@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This script controlls the sensitivty of the camera and adjusts the sensitivty through UI
+/// </summary>
 public class SettingsScript : MonoBehaviour
 {
     CameraController cameraController;

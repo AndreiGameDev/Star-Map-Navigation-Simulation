@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class MapGenerator : MonoBehaviour
-{
-    
+/// <summary>
+/// Generates every star within a circle with customisable radius.
+/// </summary>
+public class MapGenerator : MonoBehaviour {
     public float innerRadius = 60;
     public float outerRadius = 11;
     public float verticalLimit = 15;
@@ -37,14 +37,13 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    
+
     private void OnEnable() {
         for(int i = 0; i < starsToSpawn; i++) {
             // Generate a random angle which represents the direction from center where the star will be placed
             float angle = Random.Range(0f, Mathf.PI * 2);
-
             // Generate a random distance from the center within inner and outer radius
-            float radius = Random.Range(innerRadius,  innerRadius + outerRadius);
+            float radius = Random.Range(innerRadius, innerRadius + outerRadius);
             // Adds a bit more randomisation
             float starRandomisation = Random.Range(0, starDisplacement);
             // Calculates 2D Coordinates by translating polar(Radus, angle) coordinates to cartesian coordiantes(x,z)
@@ -66,7 +65,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
-
 }
 
 

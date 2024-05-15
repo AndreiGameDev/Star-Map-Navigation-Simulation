@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-
+/// <summary>
+/// Script which finds routes and is used for Star Galaxy Navigation
+/// </summary>
 public class RouteDefiner : MonoBehaviour {
     private static RouteDefiner instance;
     public static RouteDefiner Instance {
@@ -11,20 +11,15 @@ public class RouteDefiner : MonoBehaviour {
     }
     Star StartPointStar;
     Star EndPointStar;
-    //All stars in the hiearchy
     List<Star> galaxyStarList = new List<Star>();
-    // All stars inside the path
     [SerializeField] List<Star> starRoute = new List<Star>();
-    // Potential routes for star selection
     List<Star> potentialStarRoutes = new List<Star>();
-    // Route Connectors for potential star routes
     List<LineRenderer> potentialStarRouteConnector = new List<LineRenderer>();
-    // All star path connectors
     List<LineRenderer> starRouteConnectors = new List<LineRenderer>();
     MapGenerator mapGenerator;
-    [SerializeField] TextMeshProUGUI routeTextUI;
-    [SerializeField] GameObject image;
     Dictionary<Star, List<StarRoute>> starRoutesDictionary = new Dictionary<Star, List<StarRoute>>();
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI routeTextUI;
     [Header("StarMaterials")]
     [SerializeField] Material defaultStarMaterial;
     [SerializeField] Material startPointStarMaterial;
@@ -32,17 +27,20 @@ public class RouteDefiner : MonoBehaviour {
     [SerializeField] Material starPathMaterial;
     [Header("StarConnectorMaterials")]
     [SerializeField] Material routePathMaterial;
+
     private void Awake() {
         instance = this;
-
         mapGenerator = GetComponent<MapGenerator>();
     }
     private void Start() {
         galaxyStarList = mapGenerator.Stars;
     }
-    public void EventClickAction(Star star) { // Click interaction with the route pathfinder
-        // If the start star is not assigned then assign it
-        // Else if the end point star is not assigned, the star clicked is not the start oiunt star and it's within reach then select it
+
+    /// <summary>
+    /// Handles the event when a star is clicked for route selection.
+    /// </summary>
+    /// <param name="star">The star that was clicked.</param>
+    public void EventClickAction(Star star) {
         if(StartPointStar == null) {
             StartPointStar = star;
             star.meshRenderer.material = startPointStarMaterial;
@@ -56,31 +54,32 @@ public class RouteDefiner : MonoBehaviour {
             Debug.Log("Start Point and End Point are both already set.");
         }
     }
+
+    /// UI Button Method to search the shortest route
     public void SearchDefinedRoute() {
-        // If statement checks if we have a start and end point selected and if it contains a route.
         if(StartPointStar != null && EndPointStar != null && starRoutesDictionary.ContainsKey(StartPointStar)) {
-            ResetPath(true); // Cleans up previous stuff
-            foreach(StarRoute starData in starRoutesDictionary[StartPointStar]) { // Digs the route
+            ResetPath(true);
+            foreach(StarRoute starData in starRoutesDictionary[StartPointStar]) {
                 if(starData.endPoint == EndPointStar) {
                     starRoute = starData.pathToEndPoint;
                 }
             }
             SearchAndEnableRouteConnectors();
-
             HighLightStartAndEndPoint();
-
-            // UI Text route display
             SetUITextRoute();
         }
     }
 
+    /// <summary>
+    /// Sets the UI text to display the route information.
+    /// </summary>
     private void SetUITextRoute() {
         foreach(Star star in starRoute) {
             string text = routeTextUI.text;
             float distance = 0;
             string distanceText = "";
             if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
-                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance; // Index needs to be + 1 coz it's calculating distance to next star
+                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance;
                 distanceText = distance + " Galaxy Miles away from next star.";
             } else {
                 distance = 0;
@@ -90,6 +89,9 @@ public class RouteDefiner : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Automatically searches for the safest route between the start and end points.
+    /// </summary>
     public void AutoSearchSafestRoute() {
         if(StartPointStar != null && EndPointStar != null && starRoutesDictionary.ContainsKey(StartPointStar)) {
             ResetPath(true);
@@ -98,18 +100,20 @@ public class RouteDefiner : MonoBehaviour {
             SearchAndEnableRouteConnectors();
             HighLightStartAndEndPoint();
             routeTextUI.text = "Found the most safe route available, displaying route with a danger level of: " + tempData.dangerLevel + ".\n";
-            // UI Text route display
             SetUITextSafeRoute();
         }
     }
 
+    /// <summary>
+    /// Sets the UI text to display the safest route information.
+    /// </summary>
     private void SetUITextSafeRoute() {
         foreach(Star star in starRoute) {
             string text = routeTextUI.text;
             float distance = 0;
             string distanceText = "";
             if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
-                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance; // Index needs to be + 1 coz it's calculating distance to next star
+                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance;
                 distanceText = distance + " Galaxy Miles away from next star.";
             } else {
                 distance = 0;
@@ -119,7 +123,11 @@ public class RouteDefiner : MonoBehaviour {
         }
     }
 
-    public void ResetPath(bool isPathfinding) { // Resets UI, Star colors, route connectors and cleans up route list
+    /// <summary>
+    /// Resets the path, UI, star colors, and route connectors.
+    /// </summary>
+    /// <param name="isPathfinding"> If it's set to false this won't reset StartPoint and EndStarPoint for pathfinding functions. Use True inside methods. Use false for when used in UI. </param>
+    public void ResetPath(bool isPathfinding) {
         if(starRouteConnectors.Count > 0 || starRoute.Count > 0) {
             ResetPotentialEndPoints();
             ResetPathPoints(isPathfinding);
@@ -128,7 +136,7 @@ public class RouteDefiner : MonoBehaviour {
             }
             foreach(LineRenderer route in starRouteConnectors) {
                 route.gameObject.SetActive(false);
-            }  
+            }
             starRouteConnectors.Clear();
             routeTextUI.text = "";
         } else {
@@ -136,9 +144,13 @@ public class RouteDefiner : MonoBehaviour {
             ResetPathPoints(isPathfinding);
         }
     }
+
+    /// <summary>
+    /// Precalculates the route paths from the start point to all other stars.
+    /// </summary>
+    /// <param name="StartPoint">The starting star.</param>
     private void PrecalculateStarRoutePaths(Star StartPoint) {
         if(!starRoutesDictionary.ContainsKey(StartPoint)) {
-            // Display Image to explain paths are being calculated
             for(int i = 0; i < galaxyStarList.Count; i++) {
                 Star Destination = galaxyStarList[i];
                 if(StartPoint == Destination) {
@@ -149,18 +161,19 @@ public class RouteDefiner : MonoBehaviour {
                     }
                 }
             }
-            // Turn off image 
         }
     }
+
+    /// <summary>
+    /// Finds every available path and displays them with a different colour.
+    /// </summary>
     void AvailableEndPointShowcase() {
         if(starRoutesDictionary.ContainsKey(StartPointStar)) {
             foreach(StarRoute starPathData in starRoutesDictionary[StartPointStar]) {
                 potentialStarRoutes.Add(starPathData.endPoint);
             }
-            // Loops through star route dictionary of start point star
-            for(int j =0;  j < starRoutesDictionary[StartPointStar].Count; j++) {
-                // Loops through every list of paths
-                for(int p =0; p < starRoutesDictionary[StartPointStar][j].pathToEndPoint.Count - 1; p++) {
+            for(int j = 0; j < starRoutesDictionary[StartPointStar].Count; j++) {
+                for(int p = 0; p < starRoutesDictionary[StartPointStar][j].pathToEndPoint.Count - 1; p++) {
                     Star startStar = starRoutesDictionary[StartPointStar][j].pathToEndPoint[p];
                     Star destinationStar = starRoutesDictionary[StartPointStar][j].pathToEndPoint[p + 1];
                     if(potentialStarRouteConnector.Contains(startStar.routeConnectors[destinationStar]) == false) {
@@ -176,6 +189,10 @@ public class RouteDefiner : MonoBehaviour {
             }
         }
     }
+
+    /// <summary>
+    /// Resets the material and clears the list for potential end points for the star selected.
+    /// </summary>
     void ResetPotentialEndPoints() {
         foreach(Star star in potentialStarRoutes) {
             star.meshRenderer.material = defaultStarMaterial;
@@ -184,36 +201,55 @@ public class RouteDefiner : MonoBehaviour {
             line.gameObject.SetActive(false);
         }
     }
+
+    /// <summary>
+    /// Checks if a path exists between two stars.
+    /// </summary>
+    /// <param name="star1">The starting star.</param>
+    /// <param name="star2">The destination star.</param>
+    /// <returns>True if a path exists, false otherwise.</returns>
     bool ReturnsPath(Star star1, Star star2) {
-        if(FindPath(star1, star2).Count > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return FindPath(star1, star2).Count > 0;
     }
+
+    /// <summary>
+    /// Adds a route to the star routes dictionary.
+    /// </summary>
+    /// <param name="dictionary">The dictionary to add to.</param>
+    /// <param name="key">The starting star.</param>
+    /// <param name="value">The route to add.</param>
     static void AddTostarRoutesDictionary(Dictionary<Star, List<StarRoute>> dictionary, Star key, StarRoute value) {
         if(dictionary.ContainsKey(key) == false) {
             dictionary[key] = new List<StarRoute>();
         }
         dictionary[key].Add(value);
     }
+
+    /// <summary>
+    /// Highlights the start and end points with specified materials.
+    /// </summary>
     private void HighLightStartAndEndPoint() {
-        // Makes sure there is material set on path
         StartPointStar.meshRenderer.material = startPointStarMaterial;
         EndPointStar.meshRenderer.material = endPointStarMaterial;
     }
+
+    /// <summary>
+    /// Searches and enables the route connectors for the defined route.
+    /// </summary>
     private void SearchAndEnableRouteConnectors() {
-        // Digs the route connectors
         for(int i = 0; i < starRoute.Count - 1; i++) {
             Star startStar = starRoute[i];
             Star destinationStar = starRoute[i + 1];
             starRouteConnectors.Add(startStar.routeConnectors[destinationStar]);
         }
-        // Activate the route connectors
         foreach(LineRenderer route in starRouteConnectors) {
             route.gameObject.SetActive(true);
         }
     }
+
+    /// <summary>
+    /// Resets the path points and their materials.
+    /// </summary>
     private void ResetPathPoints(bool isPathfinding) {
         if(StartPointStar != null && isPathfinding == false) {
             StartPointStar.meshRenderer.material = defaultStarMaterial;
@@ -224,36 +260,16 @@ public class RouteDefiner : MonoBehaviour {
             EndPointStar = null;
         }
     }
-    public static StarRouteDangerData FindLowestDangerLevelRoute(List<List<Star>> StarRouteLists) {
-        List<StarRouteDangerData> dangerStarRoutes = new List<StarRouteDangerData>();
-        foreach(List<Star> starList in StarRouteLists) {
-            int dangerLevel = 0;
-            foreach(Star route in starList) {
-                dangerLevel += route.dangerValue;
-            }
-            dangerStarRoutes.Add(new StarRouteDangerData(starList, dangerLevel));
-        }
-        return SortByLowestDanger(dangerStarRoutes);
-    }
 
-    private static StarRouteDangerData SortByLowestDanger(List<StarRouteDangerData> _starRoutesDangerLevel) {
-        for(int i = 0; i < _starRoutesDangerLevel.Count; i++) {
-            for(int j = 0; j < _starRoutesDangerLevel.Count - 1; j++) {
-                StarRouteDangerData first = _starRoutesDangerLevel[j];
-                StarRouteDangerData second = _starRoutesDangerLevel[j + 1];
-                if(first.dangerLevel < second.dangerLevel) {
-                    _starRoutesDangerLevel[j] = second;
-                    _starRoutesDangerLevel[j + 1] = first;
-                }
-            }
-        }
-        return _starRoutesDangerLevel[0];
-    }
-
+    /// <summary>
+    /// Finds the path between two stars using the shortest distance algorithm.
+    /// </summary>
+    /// <param name="startStar">The starting star.</param>
+    /// <param name="endGoalStar">The destination star.</param>
+    /// <returns>List of stars representing the path.</returns>
     public List<Star> FindPath(Star startStar, Star endGoalStar) {
         List<StarPath> priorityList = new List<StarPath>();
-
-        //This is what the algorithm will loop through and use to know what stars are connected to what other stars in the galaxy graph.
+        // Generates star paths for each star so the variables can be stored
         foreach(Star star in galaxyStarList) {
             StarPath newPath = new StarPath(star, null);
             if(star == startStar) {
@@ -264,59 +280,47 @@ public class RouteDefiner : MonoBehaviour {
         }
         priorityList = OrderPriorityListByDistance(priorityList);
 
-
-        //Go through the priority list and for each star look at it's connections and find the distance to the start star.
-        //We know that there is a path between the start and end stars when the end node is at the start of the priority list and it has the highest priority.
         while(priorityList.Count > 0) {
-            StarPath currentStarNode = priorityList[0];//This should be the starting star on the first iteration. This is the star with the top priority to look at.
-
-            //Check all the stars that connect to the current star and calculate the distance to that star from the start node.
-            //Once this has been done update the star path information for each node so we know the shortest path to the node.
+            StarPath currentStarNode = priorityList[0];
+            /// Calculates the distance and checks if it's the shortest path found yet to the start, if it is then it gets set as current star node and it's distance gets stored as next star
             foreach(StarPath nextStar in GetStarPathsFromRoutesDictionary(currentStarNode.star.routeDictionary, priorityList)) {
-                //Calculate the distance to the starting star by adding the distance from the start node to the current star onto the distance from the current star to the next star.
                 float distance = nextStar.star.routeDictionary[currentStarNode.star].distance + currentStarNode.smallestDistanceToStart;
-
-                //Check if this new path's distance is shorter than the current path to this star from the start node.
                 if(distance < nextStar.smallestDistanceToStart) {
-                    //Coming from the start via the current star is the shortest path to this star so update the path information.
                     nextStar.smallestDistanceToStart = distance;
-                    nextStar.shortestPathToStart = currentStarNode;//This variable/line of code contains the information that tells you what path is currently the shortest one back to the starting star.
+                    nextStar.shortestPathToStart = currentStarNode;
                 }
             }
-
-            //Once we reach this point the current star at the top of the priority list has fully been checked!!!
-            //Now we should remove it from the priority list and then reorder it for the next iteration of the loop.
             priorityList.Remove(currentStarNode);
             if(priorityList.Count > 0) {
                 priorityList = OrderPriorityListByDistance(priorityList);
+                // Returns the path if the top priority star is the destination point since it means it found a path.
                 if(priorityList[0].star == endGoalStar && priorityList[0].smallestDistanceToStart != float.MaxValue) {
-                    //If the star with the highest priority is now the end star then that means we have found the shortest path to the end.
-                    //However the distance to the start must not be infinite else that just means we haven't found a connection.
-                    //as the end star will only have the highest priority when it has the shortest distance value so we now need to backtrack and construct the path list to return.
                     List<Star> pathToEnd = new List<Star>();
-                    StarPath backtrackStar = priorityList[0]; //This is currently the end goal star.
+                    StarPath backtrackStar = priorityList[0];
                     pathToEnd.Add(backtrackStar.star);
-
                     while(backtrackStar.star != startStar) {
-                        //We are now retracing our steps. Going through each star that is the shortest path to the current one and then adding it to the path to the end goal list.
                         backtrackStar = backtrackStar.shortestPathToStart;
                         pathToEnd.Add(backtrackStar.star);
                     }
-
-                    //The path to the start star from the end star has been constructed. We now want to reverse it so that that the path given is from the start star to the end star instead.
                     pathToEnd.Reverse();
-                    return pathToEnd;//We have the path to the goal star so we now want to return it!!!
+                    return pathToEnd;
                 }
             }
         }
 
-        //If we get out of the loop then there is no path to the end as the priority list has ran out without getting to the end star.
         return new List<Star>();
     }
+
+    /// <summary>
+    /// Finds the safest path between two stars based on danger levels.
+    /// </summary>
+    /// <param name="startStar">The starting star.</param>
+    /// <param name="endGoalStar">The destination star.</param>
+    /// <returns>StarRouteDangerData containing the route and danger level.</returns>
     public StarRouteDangerData FindSafestPath(Star startStar, Star endGoalStar) {
         List<StarPathDanger> priorityList = new List<StarPathDanger>();
 
-        //This is what the algorithm will loop through and use to know what stars are connected to what other stars in the galaxy graph.
+        // Generates star danger paths for each star so the variables can be stored
         foreach(Star star in galaxyStarList) {
             StarPathDanger newPath = new StarPathDanger(star, null);
             if(star == startStar) {
@@ -329,6 +333,7 @@ public class RouteDefiner : MonoBehaviour {
 
         while(priorityList.Count > 0) {
             StarPathDanger currentStarNode = priorityList[0];
+            // This checks the danger value of the path and records the lowest found danger route
             foreach(StarPathDanger nextStar in GetStarPathsDangerFromRoutesDictionary(currentStarNode.star.routeDictionary, priorityList)) {
                 int dangerLevel = nextStar.star.routeDictionary[currentStarNode.star].dangerLevel + currentStarNode.lowestDangerLevelPathToStart;
                 if(dangerLevel < nextStar.lowestDangerLevelPathToStart) {
@@ -452,15 +457,6 @@ public class RouteDefiner : MonoBehaviour {
         public StarRouteDangerData(List<Star> _route, int _dangerLevel) {
             route = _route;
             dangerLevel = _dangerLevel;
-        }
-    }
-
-    public struct StarRouteDistanceData {
-        public List<Star> route;
-        public float distance;
-        public StarRouteDistanceData(List<Star> _route, float _distance) {
-            route = _route;
-            distance = _distance;
         }
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class ApplicationSettings : MonoBehaviour {
     public static ApplicationSettings instance;
     private void Awake() {

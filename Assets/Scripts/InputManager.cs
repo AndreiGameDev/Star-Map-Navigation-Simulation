@@ -1,8 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Input manager used while in the star map
+/// </summary>
 public class InputManager : MonoBehaviour {     
     private static InputManager instance;
     public static InputManager Instance {
@@ -15,8 +16,6 @@ public class InputManager : MonoBehaviour {
     public Vector2 cameraLook;
     public bool cameraFloat;
     public bool cameraSwap;
-
-    
     private void Awake() {
         instance = this;
         playerInput = GetComponent<PlayerInput>();
@@ -26,11 +25,9 @@ public class InputManager : MonoBehaviour {
     void OnSwapCamera(InputValue value) {
         SwapCamera(value.isPressed);
     }
-
     void OnMove(InputValue value) {
         CameraMove(value.Get<Vector2>());
     }
-
     void OnLook(InputValue value) {
         CameraLook(value.Get<Vector2>());
     }
@@ -43,7 +40,6 @@ public class InputManager : MonoBehaviour {
     public void CameraFloat(bool value) {
         cameraFloat = value;
     }
-
     public void CameraLook(Vector2 value) {
         cameraLook = value;
     }
