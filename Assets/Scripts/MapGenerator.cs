@@ -40,7 +40,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void OnEnable() {
         for(int i = 0; i < starsToSpawn; i++) {
-            // Generate a random angle which represents the direction from center where the star will be placed
+            // Generate a random angle which represents the direction from center
             float angle = Random.Range(0f, Mathf.PI * 2);
             // Generate a random distance from the center within inner and outer radius
             float radius = Random.Range(innerRadius, innerRadius + outerRadius);
@@ -59,7 +59,6 @@ public class MapGenerator : MonoBehaviour {
                 tempObjectInformation.name = nameGenerator.GenerateNameString();
                 tempObjectInformation.GetComponent<Star>().rangeToCheck = starDisplacement + 1;
                 Stars.Add(tempObjectInformation.GetComponent<Star>());
-                tempObjectInformation = null;
             } else {
                 i--;
             }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+/// <summary>
+/// Click event for stars
+/// </summary>
 public class EventClick : MonoBehaviour, IPointerClickHandler {
     RouteDefiner routeDefiner;
     Star star;

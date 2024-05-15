@@ -76,13 +76,11 @@ public class RouteDefiner : MonoBehaviour {
     private void SetUITextRoute() {
         foreach(Star star in starRoute) {
             string text = routeTextUI.text;
-            float distance = 0;
-            string distanceText = "";
+            string distanceText;
             if(starRoute[starRoute.IndexOf(star)] != EndPointStar) {
-                distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance;
+                float distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance;
                 distanceText = distance + " Galaxy Miles away from next star.";
             } else {
-                distance = 0;
                 distanceText = "Destination point";
             }
             routeTextUI.text = text + (starRoute.IndexOf(star) + 1) + ". " + star.name + " - " + distanceText + "\n";
@@ -90,7 +88,7 @@ public class RouteDefiner : MonoBehaviour {
     }
 
     /// <summary>
-    /// Automatically searches for the safest route between the start and end points.
+    /// Searches for the safest route between the start and end points.
     /// </summary>
     public void AutoSearchSafestRoute() {
         if(StartPointStar != null && EndPointStar != null && starRoutesDictionary.ContainsKey(StartPointStar)) {
@@ -116,7 +114,6 @@ public class RouteDefiner : MonoBehaviour {
                 distance = star.routeDictionary[starRoute[starRoute.IndexOf(star) + 1]].distance;
                 distanceText = distance + " Galaxy Miles away from next star.";
             } else {
-                distance = 0;
                 distanceText = "Destination point";
             }
             routeTextUI.text = text + (starRoute.IndexOf(star) + 1) + ". " + star.name + " - " + distanceText + "\n";
@@ -153,12 +150,8 @@ public class RouteDefiner : MonoBehaviour {
         if(!starRoutesDictionary.ContainsKey(StartPoint)) {
             for(int i = 0; i < galaxyStarList.Count; i++) {
                 Star Destination = galaxyStarList[i];
-                if(StartPoint == Destination) {
-                    break;
-                } else {
-                    if(ReturnsPath(StartPoint, Destination)) {
-                        AddTostarRoutesDictionary(starRoutesDictionary, StartPoint, new StarRoute(Destination, FindPath(StartPoint, Destination)));
-                    }
+                if(StartPoint.routeDictionary.Count != 0 && ReturnsPath(StartPoint, Destination) && StartPoint != Destination) {
+                    AddTostarRoutesDictionary(starRoutesDictionary, StartPoint, new StarRoute(Destination, FindPath(StartPoint, Destination)));
                 }
             }
         }
@@ -357,7 +350,7 @@ public class RouteDefiner : MonoBehaviour {
                     }
                     Debug.Log(backtrackStar.lowestDangerLevelPathToStart);
                     pathToEnd.Reverse();
-                    return new StarRouteDangerData(pathToEnd,danger);
+                    return new StarRouteDangerData(pathToEnd, danger);
                 }
             }
         }
