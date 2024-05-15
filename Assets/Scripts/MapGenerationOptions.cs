@@ -44,7 +44,7 @@ public class MapGenerationOptions : MonoBehaviour
            innerRadius.value = PlayerPrefs.GetFloat(keyInnerRadius);
            valueInnerRadiusUI.text = MathF.Round(innerRadius.value, 2).ToString();
         } else {
-            innerRadius.value = 25;
+            innerRadius.value = 75;
             PlayerPrefs.SetFloat(keyInnerRadius, innerRadius.value);
             valueInnerRadiusUI.text = MathF.Round(innerRadius.value, 2).ToString();
         }
@@ -53,7 +53,7 @@ public class MapGenerationOptions : MonoBehaviour
             outerRadius.value = PlayerPrefs.GetFloat(keyOuterRadius);
             valueOuterRadiusUI.text = MathF.Round(outerRadius.value, 2).ToString();
         } else {
-            outerRadius.value = 25;
+            outerRadius.value = 50;
             PlayerPrefs.SetFloat (keyOuterRadius, outerRadius.value);
             valueOuterRadiusUI.text = MathF.Round(outerRadius.value, 2).ToString();
         }
@@ -62,7 +62,7 @@ public class MapGenerationOptions : MonoBehaviour
             verticalLimit.value = PlayerPrefs.GetFloat(keyVerticalLimit);
             valueVerticalLimitUI.text = MathF.Round(verticalLimit.value, 2).ToString();
         } else {
-            verticalLimit.value = 25;
+            verticalLimit.value = 35;
             PlayerPrefs.SetFloat(keyVerticalLimit, verticalLimit.value);
             valueVerticalLimitUI.text= MathF.Round(verticalLimit.value, 2).ToString();
         }
@@ -80,7 +80,7 @@ public class MapGenerationOptions : MonoBehaviour
             starsToSpawn.value = (int)PlayerPrefs.GetFloat(keyStarsToSpawn);
             valueStarsToSpawnUI.text = starsToSpawn.value.ToString();
         } else {
-            starsToSpawn.value = 100;
+            starsToSpawn.value = 300;
             PlayerPrefs.SetFloat(keyStarsToSpawn, starsToSpawn.value);
             valueStarsToSpawnUI.text = starsToSpawn.value.ToString();
         }

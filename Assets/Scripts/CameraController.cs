@@ -40,9 +40,8 @@ public class CameraController : MonoBehaviour
 
     void Look() { 
         Vector2 lookVector = inputManager.cameraLook;
-
         xRotation -= lookVector.y * cameraSensitivity * Time.deltaTime;
-
+        xRotation = ClampAngle(xRotation, -90f, 90f);
         transform.Rotate(Vector3.up * lookVector.x * cameraSensitivity * Time.deltaTime);
         cinemachineTargetGO.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
