@@ -5,16 +5,19 @@ using UnityEngine;
 public class MapDebugger : Editor {
 
     private void OnSceneGUI() {
-        Handles.color = Color.yellow;
         MapGenerator myObj = (MapGenerator)target;
+
+        // Draw the inner radius disc
+        Handles.color = Color.yellow;
         Handles.DrawWireDisc(myObj.transform.position, myObj.transform.up, myObj.innerRadius);
+
         Handles.color = Color.red;
-        Handles.DrawWireDisc(myObj.transform.position, myObj.transform.up, myObj.innerRadius - myObj.outerRadius);
-        Handles.DrawWireDisc(myObj.transform.position, myObj.transform.up, myObj.innerRadius + myObj.outerRadius);
+        // Draw the outer radius disc
+        Handles.DrawWireDisc(myObj.transform.position, myObj.transform.up, myObj.outerRadius + myObj.innerRadius);
+
         Handles.color = Color.blue;
-        //Handles.DrawWireDisc(myObj.transform.position, myObj.transform.right, myObj.innerRadius - myObj.outerRadius);
-        //Handles.DrawWireDisc(myObj.transform.position, myObj.transform.right, myObj.innerRadius + myObj.outerRadius);
-        Handles.DrawWireDisc(myObj.transform.position - new Vector3(0, myObj.verticalLimit, 0), myObj.transform.up, myObj.innerRadius);
-        Handles.DrawWireDisc(myObj.transform.position + new Vector3(0, myObj.verticalLimit, 0), myObj.transform.up, myObj.innerRadius);
+        // Draw the limit discs at vertical limits
+        Handles.DrawWireDisc(myObj.transform.position - new Vector3(0, myObj.verticalLimit, 0), myObj.transform.up, myObj.outerRadius);
+        Handles.DrawWireDisc(myObj.transform.position + new Vector3(0, myObj.verticalLimit, 0), myObj.transform.up, myObj.outerRadius);
     }
 }

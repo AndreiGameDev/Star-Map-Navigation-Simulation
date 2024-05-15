@@ -40,20 +40,19 @@ public class MapGenerator : MonoBehaviour
     
     private void OnEnable() {
         for(int i = 0; i < starsToSpawn; i++) {
-            // Generate a random angle
+            // Generate a random angle which represents the direction from center where the star will be placed
             float angle = Random.Range(0f, Mathf.PI * 2);
-             
-            // Generate a random distance from the center within the innerRadius
-            float radius = innerRadius;
 
-            // Calculate the spawn position using polar to Cartesian conversion
-            float x = radius * Mathf.Cos(angle);
-            float z = radius * Mathf.Sin(angle);
+            // Generate a random distance from the center within inner and outer radius
+            float radius = Random.Range(innerRadius,  innerRadius + outerRadius);
+            // Adds a bit more randomisation
+            float starRandomisation = Random.Range(0, starDisplacement);
+            // Calculates 2D Coordinates by translating polar(Radus, angle) coordinates to cartesian coordiantes(x,z)
+            float x = radius * Mathf.Cos(angle) + starRandomisation;
+            float z = radius * Mathf.Sin(angle) + starRandomisation;
+            // Vertical Spawn position
             float y = Random.Range(-verticalLimit, verticalLimit);
-
-            // Create the spawn position
-            Vector3 spawnPosition = new Vector3(x + Random.Range(-starDisplacement, starDisplacement), y, z + Random.Range(-starDisplacement, starDisplacement));
-
+            Vector3 spawnPosition = new Vector3(x, y, z);
             // Check for any potential star overlaps
             if(Physics.CheckSphere(spawnPosition, 3f) == false) {
                 // Instantiate the starPrefab

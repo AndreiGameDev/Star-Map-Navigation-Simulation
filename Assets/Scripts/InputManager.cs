@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour {     
     private static InputManager instance;
@@ -16,16 +18,11 @@ public class InputManager : MonoBehaviour {
 
     
     private void Awake() {
-        if(instance != null) {
-            Destroy(gameObject);
-        } else {
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
+        instance = this;
         playerInput = GetComponent<PlayerInput>();
         playerMap = playerInput.actions.FindActionMap("Player");
         uiMap = playerInput.actions.FindActionMap("UI");
-    }   
+    }
     void OnSwapCamera(InputValue value) {
         SwapCamera(value.isPressed);
     }
