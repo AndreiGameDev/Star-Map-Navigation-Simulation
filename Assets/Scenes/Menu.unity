@@ -717,7 +717,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 909629374}
   m_Direction: 0
   m_MinValue: 50
-  m_MaxValue: 150
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 50
   m_OnValueChanged:
@@ -3271,7 +3271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How far out from the origin point should stars start spawning from?
+  m_text: How far from the planet should the stars start spawning from?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3902,7 +3902,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 977797867}
   m_Direction: 0
   m_MinValue: 10
-  m_MaxValue: 100
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 50
   m_OnValueChanged:
