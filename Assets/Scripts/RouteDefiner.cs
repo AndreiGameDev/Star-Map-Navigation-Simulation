@@ -43,9 +43,9 @@ public class RouteDefiner : MonoBehaviour {
     public void EventClickAction(Star star) {
         if(StartPointStar == null) {
             StartPointStar = star;
-            star.meshRenderer.material = startPointStarMaterial;
-            PrecalculateStarRoutePaths(star);
-            AvailableEndPointShowcase();
+			PrecalculateStarRoutePaths(star);
+			AvailableEndPointShowcase();
+			star.meshRenderer.material = startPointStarMaterial;
         } else if(EndPointStar == null && StartPointStar != star && potentialStarRoutes.Contains(star)) {
             ResetPotentialEndPoints();
             EndPointStar = star;

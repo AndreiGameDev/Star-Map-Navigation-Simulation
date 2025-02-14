@@ -19,6 +19,7 @@ public class SettingsScript : MonoBehaviour
             cameraController.cameraSensitivity = PlayerPrefs.GetFloat("floatSensitivity");
             textUI.text = PlayerPrefs.GetFloat("floatSensitivity").ToString();
         }
+        gameObject.SetActive(false);
     }
 
     public void ChangeSensitivity(float value) {
